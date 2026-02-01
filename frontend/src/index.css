@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap");
+@import "tailwindcss";
+body {
+  font-family: "Cormorant Garamond", serif;
+}
+@layer components {
+  .btn-quay {
+    /* 1. Base Structure & Typography */
+    @apply relative inline-flex items-center justify-center min-w-[220px] h-[58px] 
+           px-12 py-4 bg-[#FDFBF7] text-[#825E3F] font-serif font-medium 
+           tracking-[0.4em] uppercase text-[14px] cursor-pointer 
+           transition-all duration-500 ease-out overflow-hidden select-none;
+
+    /* 2. The Notched Shape (Using a Mask for perfect anti-aliasing) */
+    mask-image:
+      radial-gradient(
+        circle at 0 0,
+        transparent 0,
+        transparent 15px,
+        black 16px
+      ),
+      radial-gradient(
+        circle at 100% 100%,
+        transparent 0,
+        transparent 15px,
+        black 16px
+      ),
+      linear-gradient(black, black);
+    mask-composite: exclude;
+    -webkit-mask-composite: destination-in;
+
+    /* 3. The Decorative Border */
+    &::before {
+      content: "";
+      @apply absolute inset-[2px] border border-[#825E3F]/40 pointer-events-none;
+      mask: inherit; /* Follows the parent's notched shape */
+    }
+
+    /* 4. The Ornate Diamond Accents */
+    &::after {
+      content: "";
+      @apply absolute inset-0 pointer-events-none opacity-90 transition-all duration-500;
+      /* Detailed Diamond Ornament with 'rays' */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 5 L23 17 L35 20 L23 23 L20 35 L17 23 L5 20 L17 17 Z' fill='%23825E3F'/%3E%3C/svg%3E");
+      background-size: 22px 22px;
+      background-repeat: no-repeat;
+      /* Positioned exactly in the notched corners */
+      background-position:
+        top -4px left -4px,
+        bottom -4px right -4px;
+    }
+
+    /* 5. Enhanced Hover State */
+    &:hover {
+      @apply bg-[#825E3F] text-[#FDFBF7] shadow-xl shadow-[#825E3F]/10;
+      letter-spacing: 0.45em; /* Subtle expansion */
+
+      &::before {
+        @apply border-[#FDFBF7]/30;
+      }
+
+      &::after {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 5 L23 17 L35 20 L23 23 L20 35 L17 23 L5 20 L17 17 Z' fill='%23FDFBF7'/%3E%3C/svg%3E");
+        transform: scale(1.1);
+      }
+    }
+
+    /* 6. Click Interaction */
+    &:active {
+      @apply scale-[0.98] duration-100;
+    }
+  }
+}
