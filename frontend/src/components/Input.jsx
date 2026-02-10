@@ -4,7 +4,6 @@ import { Eye, EyeOff } from "lucide-react";
 const Input = ({ label, value, onChange, type, ...props }) => {
   const [showPassword, setShowPassword] = useState(false);
   const toggleShowPassword = () => setShowPassword(!showPassword);
-
   const isPassword = type === "password";
 
   return (
@@ -20,7 +19,6 @@ const Input = ({ label, value, onChange, type, ...props }) => {
                    focus:border-gray-800 outline-none pb-2 pt-1 transition-colors
                    ${isPassword ? "pr-10" : "pr-0"}`}
       />
-
       {/* Floating label */}
       <label
         className="absolute left-0 top-2 text-gray-500 text-xs transition-all duration-300 pointer-events-none

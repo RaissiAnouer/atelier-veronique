@@ -3,6 +3,9 @@
 body {
   font-family: "Cormorant Garamond", serif;
 }
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
 @layer components {
   .btn-quay {
     /* 1. Base Structure & Typography */
