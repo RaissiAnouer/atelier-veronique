@@ -5,6 +5,7 @@ import { useContext, useEffect } from "react";
 import { Menu, Search, ShoppingBag, User, X } from "lucide-react";
 import Title from "./Title";
 import SidebarModal from "./SidebarModal";
+import { assets } from "../assets/assets";
 
 const Navbar = () => {
   const [openSideMenu, setOpenSideMenu] = useState(false);
@@ -45,13 +46,47 @@ const Navbar = () => {
           )}
         </button>
         <div className=" items-center gap-6 hidden md:flex">
-          <p className="text-xl font-semibold text-gray-400 hover:text-gray-800 cursor-pointer">
-            Collection
-          </p>
-          <p className="text-xl font-semibold text-gray-400 hover:text-gray-800 cursor-pointer">
+          <div className="relative group  ">
+            <p className="text-md font-semibold text-gray-400 group-hover:text-gray-800  cursor-pointer">
+              Collection
+            </p>
+            <div className="absolute top-full  font-semibold opacity-0 invisible translate-y-2 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 w-[160px] border border-gray-200 bg-white  px-5 py-4 text-sm space-y-3 font-medium text-[14px] ">
+              <p>New</p>
+
+              <div className="relative group/top">
+                <div className="flex justify-between  items-center">
+                  <p>Top</p>
+                  <img src={assets.next} className="w-2 h-2" alt="" />
+                </div>
+                <div className="absolute left-full px-5 top-0 opacity-0 invisible translate-x-2 transition-all duration-300 ease-out group-hover/top:opacity-100 group-hover/top:visible group-hover/bottom:translate-x-0 w-[160px] border border-gray-200 bg-white px-5 py-4 text-sm space-y-3 font-medium text-[14px]">
+                  <p>Shirts</p>
+                  <p>Jackets</p>
+                  <p>T-shirts</p>
+                  <p>Knitwear</p>
+                </div>
+              </div>
+
+              <div className="relative group/bottom">
+                <div className="flex justify-between items-center">
+                  <p>Bottom</p>
+                  <img src={assets.next} className="w-2 h-2" alt="" />
+                </div>
+                <div className="absolute left-full px-5  top-0 opacity-0 invisible translate-x-2 transition-all duration-300 ease-out group-hover/bottom:opacity-100 group-hover/bottom:visible group-hover/bottom:translate-x-0 w-[160px] border border-gray-200 bg-white px-5 py-4 text-sm space-y-3 font-medium text-[14px]">
+                  <p>Jeans</p>
+                  <p>Shorts</p>
+                  <p>Skirts</p>
+                </div>
+              </div>
+              <p>Suits</p>
+              <p>Coats</p>
+              <p>Shoes</p>
+            </div>
+          </div>
+
+          <p className="text-md font-semibold text-gray-400 hover:text-gray-800 cursor-pointer">
             About
           </p>
-          <p className="text-xl font-semibold text-gray-400 hover:text-gray-800 cursor-pointer">
+          <p className="text-md font-semibold text-gray-400 hover:text-gray-800 cursor-pointer">
             Contact
           </p>
         </div>

@@ -8,11 +8,7 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-      <img
-        src={assets.home}
-        className="w-full h-full object-cover"
-        alt=""
-      />{" "}
+      <img src={assets.home} className="w-full h-full object-cover" alt="" />
       <ItemsScroll
         title="DESIGNED WITH CARE USING ONLY THE FINEST FABRICS"
         inventory={inventory}

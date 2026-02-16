@@ -1,5 +1,6 @@
 import { ArrowRightIcon, X } from "lucide-react";
 import { assets } from "../assets/assets";
+import { useState } from "react";
 
 const SidebarModal = ({ isOpen, onClose }) => {
   return (
@@ -29,25 +30,25 @@ const SidebarModal = ({ isOpen, onClose }) => {
           </button>
 
           {/* Sidebar items */}
-          <div className="flex flex-col divide-y divide-gray-300 text-md">
+          <div className="flex flex-col divide-y divide-gray-300 text-sm">
             {/* Item 1 */}
-            <div className="flex justify-between items-center py-6 cursor-pointer">
-              <p className=" text-gray-500 hover:text-gray-800 font-semibold transition">
+            <div className="flex justify-between items-center py-4 cursor-pointer">
+              <p className="  text-gray-500 hover:text-gray-800 font-semibold transition">
                 COLLECTION
               </p>
-              <img src={assets.next} className=" w-5 h-5" />
+              <img src={assets.next} className=" w-3 h-3" />
             </div>
 
             {/* Item 2 */}
-            <div className="flex justify-between items-center py-6 cursor-pointer">
+            <div className="flex justify-between items-center py-4 cursor-pointer">
               <p className=" text-gray-500 hover:text-gray-800 font-semibold transition">
                 MADE-TO-MESURE
               </p>
-              <img src={assets.next} className=" w-5 h-5" />
+              <img src={assets.next} className=" w-3 h-3" />
             </div>
 
             {/* Item 3 */}
-            <div className="flex justify-between items-center py-6 cursor-pointer">
+            <div className="flex justify-between items-center py-4 cursor-pointer">
               <p className=" text-gray-500 hover:text-gray-800 font-semibold transition">
                 GIFT CARDS
               </p>

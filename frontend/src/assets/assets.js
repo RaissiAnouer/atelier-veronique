@@ -7,6 +7,7 @@ import home5 from "./home5.png"
 import next from "./next.svg"
 import home6 from "./home6.jpeg"
 import previous from "./previous.svg"
+import arrowDown from "./arrow-down.svg"
 
 import CaryWhitefONT from "./collection/images/carywhite_font.png/"
 import CaryWhite from "./collection/images/carywhite.png";
@@ -34,7 +35,7 @@ import pant4_3 from "./collection/images/pant4_3.jpeg";
 
 export const assets = {
     login, home, next, home2, home3, home4, home5
-    , home6, previous
+    , home6, previous, arrowDown
 }
 
 export const inventory = [
