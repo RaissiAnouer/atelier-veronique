@@ -1,5 +1,6 @@
 package com.AtelierVeronique.Atelier.Veronique.controller;
 
+import com.AtelierVeronique.Atelier.Veronique.dto.CategoryCount;
 import com.AtelierVeronique.Atelier.Veronique.dto.ProductDTO;
 import com.AtelierVeronique.Atelier.Veronique.entity.ProductEntity;
 import com.AtelierVeronique.Atelier.Veronique.service.ProductService;
@@ -32,6 +33,11 @@ public class ProductController {
         return ResponseEntity.ok(productService.getProductByCategory(category));
     }
 
+    @GetMapping("/count")
+    public ResponseEntity<List<CategoryCount>> getCountByCategy(){
+        return ResponseEntity.ok(productService.getCategoryAndCount());
+
+    }
 
 
 

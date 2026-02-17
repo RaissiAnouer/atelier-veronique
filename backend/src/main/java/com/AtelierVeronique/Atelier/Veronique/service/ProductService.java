@@ -1,5 +1,6 @@
 package com.AtelierVeronique.Atelier.Veronique.service;
 
+import com.AtelierVeronique.Atelier.Veronique.dto.CategoryCount;
 import com.AtelierVeronique.Atelier.Veronique.dto.ProductDTO;
 import com.AtelierVeronique.Atelier.Veronique.dto.SizeDTO;
 import com.AtelierVeronique.Atelier.Veronique.entity.ProductEntity;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +35,11 @@ public class ProductService {
     public List<ProductDTO> getProductByCategory(String category){
         List<ProductEntity> products = productRepository.findByCategory(category);
         return products.stream().map(this::toDTO).toList();
+
+    }
+
+    public List<CategoryCount> getCategoryAndCount(){
+        return  productRepository.findAllCategoryGroupByCount();
 
     }
 

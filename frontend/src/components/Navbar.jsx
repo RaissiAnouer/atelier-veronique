@@ -125,7 +125,6 @@ const Navbar = () => {
       <SidebarModal
         isOpen={openSideMenu}
         onClose={() => setOpenSideMenu(false)}
-        children={["collection", "made-to-mesure", "gifts card", "style guide"]}
       />
     </div>
   );

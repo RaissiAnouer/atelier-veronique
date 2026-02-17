@@ -5,7 +5,6 @@ import { useState } from "react";
 const SidebarModal = ({ isOpen, onClose }) => {
   return (
     <>
-      {/* Overlay */}
       <div
         className={`fixed inset-0 bg-black/40 z-40 transition-opacity duration-300 ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
@@ -13,7 +12,6 @@ const SidebarModal = ({ isOpen, onClose }) => {
         onClick={onClose}
       />
 
-      {/* Sidebar */}
       <div
         className={`fixed z-50 top-0 bottom-0 left-0 w-96 bg-white overflow-y-auto
           transform transition-transform duration-300 ease-in-out
@@ -21,7 +19,6 @@ const SidebarModal = ({ isOpen, onClose }) => {
         `}
       >
         <div className="flex flex-col gap-12 p-7">
-          {/* Close button */}
           <button onClick={onClose}>
             <X
               className="text-gray-500 hover:text-gray-800 cursor-pointer"
@@ -29,9 +26,7 @@ const SidebarModal = ({ isOpen, onClose }) => {
             />
           </button>
 
-          {/* Sidebar items */}
           <div className="flex flex-col divide-y divide-gray-300 text-sm">
-            {/* Item 1 */}
             <div className="flex justify-between items-center py-4 cursor-pointer">
               <p className="  text-gray-500 hover:text-gray-800 font-semibold transition">
                 COLLECTION
@@ -39,7 +34,6 @@ const SidebarModal = ({ isOpen, onClose }) => {
               <img src={assets.next} className=" w-3 h-3" />
             </div>
 
-            {/* Item 2 */}
             <div className="flex justify-between items-center py-4 cursor-pointer">
               <p className=" text-gray-500 hover:text-gray-800 font-semibold transition">
                 MADE-TO-MESURE
@@ -47,14 +41,12 @@ const SidebarModal = ({ isOpen, onClose }) => {
               <img src={assets.next} className=" w-3 h-3" />
             </div>
 
-            {/* Item 3 */}
             <div className="flex justify-between items-center py-4 cursor-pointer">
               <p className=" text-gray-500 hover:text-gray-800 font-semibold transition">
                 GIFT CARDS
               </p>
             </div>
 
-            {/* Item 4 */}
             <div className="flex justify-between items-center py-6 cursor-pointer">
               <p className="text-gray-500 hover:text-gray-800 font-semibold transition">
                 STYLE GUIDE
