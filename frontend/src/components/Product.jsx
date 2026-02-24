@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axiosConfig from "../utils/axiosConfig";
 import { API_ENDPOINTS } from "../utils/apiEndpoints";
 import toast from "react-hot-toast";
@@ -6,11 +6,14 @@ import { useParams } from "react-router-dom";
 import { assets } from "../assets/assets";
 import Navbar from "./Navbar";
 import { Check } from "lucide-react";
+import Cart from "./Cart";
+import { AppContext } from "../context/AppContext";
 
 const Product = () => {
   const [product, setProduct] = useState();
   const { id } = useParams();
   const [size, setSize] = useState("");
+  const { openCart, setOpenCart, cart, setCart } = useContext(AppContext);
 
   const fetchProduct = async () => {
     try {
@@ -57,13 +60,21 @@ const Product = () => {
                     </button>
                   ))}
                 </div>
-                <button className="w-full text-center bg-black text-white py-3 text-sm tracking-[0.3em] mt-4 shadow-md cursor-pointer">
+                <button
+                  onClick={() =>
+                    setCart((prev) => [
+                      ...prev,
+                      { ...product, selectedSize: size },
+                    ])
+                  }
+                  className="w-full text-center bg-black text-white py-3 text-sm tracking-[0.3em] mt-4 shadow-md cursor-pointer"
+                >
                   ADD TO CART
                 </button>
                 <div className="flex items-start gap-2 mt-5 ">
                   <Check className="w-4 h-4 text-gray-500 mt-1.25" />
                   <div className="text-gray-700">
-                    <p>Pickup available at Schoffa Flagship Store</p>
+                    <p>Pickup available at our Store</p>
                     <p className="text-gray-700">Usually ready in 24 hours</p>
                   </div>
                 </div>
@@ -75,11 +86,13 @@ const Product = () => {
                   <Check className="w-4 h-4 text-gray-500 mt-1.25" />
                   <p>Easy return and exchange policy within 7 days.</p>
                 </div>
+                <div></div>
               </div>
             </div>
           )}
         </div>
       </div>
+      <Cart isOpen={openCart} onClose={() => setOpenCart(false)} />
     </div>
   );
 };

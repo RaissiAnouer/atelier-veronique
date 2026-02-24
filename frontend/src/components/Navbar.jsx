@@ -12,7 +12,7 @@ const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
 
-  const { user, clearUser } = useContext(AppContext);
+  const { user, clearUser, openCart, setOpenCart } = useContext(AppContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -119,7 +119,11 @@ const Navbar = () => {
             </div>
           )}
         </div>
-        <ShoppingBag className="text-gray-500 cursor-pointer" size={25} />
+        <ShoppingBag
+          onClick={() => setOpenCart(true)}
+          className="text-gray-500 cursor-pointer"
+          size={25}
+        />
       </div>
 
       <SidebarModal

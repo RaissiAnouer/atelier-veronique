@@ -39,18 +39,17 @@ const FilterModal = ({ isOpen, onClose }) => {
         `}
       >
         <div className="flex flex-col gap-4 py-7">
-          <button
-            onClick={onClose}
-            className="flex justify-between items-center px-7"
-          >
+          <div className="flex justify-between items-center px-7">
             <h2 className="text-md text-gray-600 text-center tracking-[0.3em] font-semibold ">
               FILTERS
             </h2>
-            <X
-              className="text-gray-500 hover:text-gray-800 cursor-pointer"
-              size={25}
-            />
-          </button>
+            <button onClick={onClose}>
+              <X
+                className="text-gray-500 hover:text-gray-800 cursor-pointer"
+                size={25}
+              />
+            </button>
+          </div>
           <p className="border-b border-gray-200 h-1 w-full"></p>
 
           <div className="flex flex-col  font-semibold px-7">
