@@ -1,12 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { assets, inventory } from "../assets/assets";
 import ProductItems from "../components/ProductItems";
 import FilterModal from "../components/FilterModal";
+import axiosConfig from "../utils/axiosConfig";
+import { API_ENDPOINTS } from "../utils/apiEndpoints";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Collections = () => {
   const [openSortBy, setOpenSortBy] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
+  const [collection, setCollection] = useState([]);
+  const navigate = useNavigate();
+
+  const handleClick = (id) => {
+    navigate(`/collection/${id}`);
+  };
+
+  useEffect(() => {
+    const fetchCollection = async () => {
+      try {
+        const response = await axiosConfig.get(API_ENDPOINTS.GETCOLLECTION);
+
+        if (response.status === 200) {
+          setCollection(response.data);
+        }
+      } catch (err) {
+        toast.error(
+          err.response?.data?.message ||
+            err.message ||
+            "Error fetching collection",
+        );
+        console.error(
+          "Error updating category",
+          err.response?.data?.message || err.message,
+        );
+      }
+    };
+    fetchCollection();
+  }, []);
+
   return (
     <div className="mb-6">
       <Navbar />
@@ -15,7 +49,7 @@ const Collections = () => {
       </h2>
       <div className="w-full relative py-3 border-y border-gray-200 mt-3 flex items-center">
         <p className="absolute left-1/2 -translate-x-1/2 text-center text-xs text-gray-400 text-xs">
-          130 PRODUCTS
+          {collection.length} PRODUCTS
         </p>
 
         <button
@@ -39,13 +73,14 @@ const Collections = () => {
 
       <div className="grid grid-cols-3 px-12 pt-10 gap-5">
         {inventory.map((item, index) => (
-          <ProductItems
-            key={index}
-            id={item.id}
-            name={item.name}
-            price={item.price}
-            image={item.image}
-          />
+          <div onClick={() => handleClick(item.id)} key={index}>
+            <ProductItems
+              id={item.id}
+              name={item.name}
+              price={item.price}
+              image={item.image}
+            />
+          </div>
         ))}
       </div>
       <FilterModal isOpen={openFilter} onClose={() => setOpenFilter(false)} />

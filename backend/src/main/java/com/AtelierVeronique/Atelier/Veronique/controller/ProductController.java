@@ -28,7 +28,7 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.AddProduct(productDTO));
     }
 
-    @GetMapping("/{category}")
+    @GetMapping("/category/{category}")
     public ResponseEntity<List<ProductDTO>> getProductByCategory(@PathVariable String category){
         return ResponseEntity.ok(productService.getProductByCategory(category));
     }
@@ -36,7 +36,11 @@ public class ProductController {
     @GetMapping("/count")
     public ResponseEntity<List<CategoryCount>> getCountByCategy(){
         return ResponseEntity.ok(productService.getCategoryAndCount());
+    }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable Long id){
+        return ResponseEntity.ok(productService.getProductById(id));
     }
 
 

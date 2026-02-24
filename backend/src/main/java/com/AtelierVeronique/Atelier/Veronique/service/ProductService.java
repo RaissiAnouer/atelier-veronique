@@ -5,12 +5,14 @@ import com.AtelierVeronique.Atelier.Veronique.dto.ProductDTO;
 import com.AtelierVeronique.Atelier.Veronique.dto.SizeDTO;
 import com.AtelierVeronique.Atelier.Veronique.entity.ProductEntity;
 import com.AtelierVeronique.Atelier.Veronique.entity.ProductSizeEntity;
+import com.AtelierVeronique.Atelier.Veronique.entity.ProfileEntity;
 import com.AtelierVeronique.Atelier.Veronique.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -47,12 +49,16 @@ public class ProductService {
         List<ProductEntity> bestSellers=productRepository.findByBestSeller(true);
         return bestSellers.stream().map(this::toDTO).toList();
     }
+    
+    public ProductDTO getProductById(Long id){
+        ProductEntity product= productRepository.findById(id).orElseThrow(()-> new RuntimeException("Product not found or not accessible"));
+        return toDTO(product);
+    }
 
 
 
 
     //HELPER METHODS
-
     private ProductEntity toEntity(ProductDTO productDTO){
         ProductEntity product= ProductEntity.builder()
                 .id(productDTO.getId())
@@ -72,8 +78,6 @@ public class ProductService {
 
             sizes.forEach(size->size.setProduct(product));
             product.setSizes(sizes);
-
-
         }
         return product;
     }

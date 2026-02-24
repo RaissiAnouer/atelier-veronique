@@ -21,6 +21,7 @@ public class ProductDTO {
     private String image;
     private BigDecimal price;
     private String category;
+    private String description;
     private boolean bestSeller;
     private List<SizeDTO> sizes;
     private LocalDateTime createdAt;

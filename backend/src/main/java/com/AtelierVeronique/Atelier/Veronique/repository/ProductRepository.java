@@ -13,7 +13,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
 
     List<ProductEntity> findByBestSeller(boolean bestSeller);
 
-    Integer CountCategory();
 
     @Query("SELECT p.category AS category,COUNT(p) AS count FROM ProductEntity p GROUP BY p.category")
     List<CategoryCount> findAllCategoryGroupByCount();

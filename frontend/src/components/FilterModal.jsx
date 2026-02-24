@@ -22,6 +22,7 @@ const FilterModal = ({ isOpen, onClose }) => {
       fetchCategoryCount();
     }
   }, [isOpen]);
+
   return (
     <>
       <div
@@ -81,12 +82,12 @@ const FilterModal = ({ isOpen, onClose }) => {
                         •
                       </span>
                       <span>{cat.category}</span>
+                      <span
+                        className={` text-sm  ${isSelected ? " text-gray-800" : "text-gray-400"} `}
+                      >
+                        ({cat.count})
+                      </span>
                     </button>
-                    <span
-                      className={` text-sm  ${isSelected ? " text-gray-800" : "text-gray-400"} `}
-                    >
-                      ({cat.count})
-                    </span>
                   </div>
                 );
               })
