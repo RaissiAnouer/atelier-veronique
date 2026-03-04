@@ -94,6 +94,7 @@ public class ProfileService {
                 .id(profileDTO.getId())
                 .fullName(profileDTO.getFullName())
                 .email(profileDTO.getEmail())
+                .cart(profileDTO.getCart())
                 .password(passwordEncoder.encode(profileDTO.getPassword()))
                 .createdAt(profileDTO.getCreatedAt())
                 .updatedAt(profileDTO.getUpdatedAt())
@@ -103,6 +104,7 @@ public class ProfileService {
     public ProfileDTO toDTO(ProfileEntity profileEntity){
         return ProfileDTO.builder()
                 .id(profileEntity.getId())
+                .cart(profileEntity.getCart())
                 .fullName(profileEntity.getFullName())
                 .email(profileEntity.getEmail())
                 .createdAt(profileEntity.getCreatedAt())
@@ -118,10 +120,6 @@ public class ProfileService {
                     profileRepository.save(profile);
                     return true;
                 }).orElse(false);
-
-
-
-
-
     }
+
 }

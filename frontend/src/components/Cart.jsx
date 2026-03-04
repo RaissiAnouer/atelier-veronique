@@ -1,6 +1,7 @@
 import { X } from "lucide-react";
 import React, { useContext } from "react";
 import { AppContext } from "../context/AppContext";
+import { assets } from "../assets/assets";
 
 const Cart = ({ isOpen, onClose }) => {
   const { cart, setCart } = useContext(AppContext);
@@ -28,13 +29,13 @@ const Cart = ({ isOpen, onClose }) => {
           {cart.length === 0 ? (
             <p className="text-gray-400 text-sm">Your cart is empty.</p>
           ) : (
-            cart.map((item) => (
+            cart.map((item, index) => (
               <div
                 className="grid grid-cols-3 w-full gap-4 items-center"
-                key={`${item.selectedSize}-${item.id}`}
+                key={index}
               >
                 <img
-                  src={item.image[0]}
+                  src={item.image?.[0] || assets.home5}
                   className="w-16 h-16 object-cover"
                   alt=""
                 />

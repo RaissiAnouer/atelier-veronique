@@ -26,6 +26,7 @@ public class ProductEntity {
     private String image;
     private BigDecimal price;
     private String category;
+    private String description;
     private boolean bestSeller;
     @Column(updatable = false)
     @CreationTimestamp

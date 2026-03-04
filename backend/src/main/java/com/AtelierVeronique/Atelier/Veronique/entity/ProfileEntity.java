@@ -32,10 +32,21 @@ public class ProfileEntity {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @OneToOne(
+            mappedBy = "profile",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private CartEntity cart;
+
     @PrePersist
     public void prePersist(){
         if(this.isActive==null){
             isActive=false;
         }
+        if(this.cart== null ){
+            this.cart=CartEntity.builder().profile(this).build();
+        }
     }
+
 }

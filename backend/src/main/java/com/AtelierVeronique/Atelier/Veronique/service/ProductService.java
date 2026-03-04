@@ -67,6 +67,7 @@ public class ProductService {
                 .price(productDTO.getPrice())
                 .category(productDTO.getCategory())
                 .bestSeller(productDTO.isBestSeller())
+                .description(productDTO.getDescription())
                 .createdAt(productDTO.getCreatedAt())
                 .updatedAt(productDTO.getUpdatedAt())
                 .build();
@@ -90,6 +91,7 @@ public class ProductService {
                 .price(productEntity.getPrice())
                 .category(productEntity.getCategory())
                 .bestSeller(productEntity.isBestSeller())
+                .description(productEntity.getDescription())
                 .createdAt(productEntity.getCreatedAt())
                 .updatedAt(productEntity.getUpdatedAt())
                 .sizes(productEntity.getSizes().stream().map(this::toSizeDTO).toList()
