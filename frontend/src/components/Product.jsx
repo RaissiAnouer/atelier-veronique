@@ -5,15 +5,17 @@ import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { assets } from "../assets/assets";
 import Navbar from "./Navbar";
-import { Check } from "lucide-react";
-import Cart from "./Cart";
+import { Check, Minus, Plus } from "lucide-react";
+import Cart from "./CartModal";
 import { AppContext } from "../context/AppContext";
+import Quantity from "./Quantity";
 
 const Product = () => {
   const [product, setProduct] = useState();
   const { id } = useParams();
   const [size, setSize] = useState("");
   const { openCart, setOpenCart, cart, setCart } = useContext(AppContext);
+  const [quantity, setQuantity] = useState(1);
 
   const fetchProduct = async () => {
     try {
@@ -24,6 +26,25 @@ const Product = () => {
       }
     } catch (err) {
       toast.error(err.response?.data?.message || "Error fetching product");
+    }
+  };
+
+  const addToCart = async () => {
+    if (!size) {
+      toast.error("Please select a size");
+      return;
+    }
+    try {
+      const response = await axiosConfig.post(
+        API_ENDPOINTS.ADDTOCART(id),
+        quantity,
+      );
+
+      if (response.status === 200) {
+        setOpenCart(true);
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Error adding to cart");
     }
   };
 
@@ -39,7 +60,7 @@ const Product = () => {
             <p>Loading ...</p>
           ) : (
             <div className="flex gap-10  w-full">
-              <img src={assets.home3} className="w-[60%]" alt="" />
+              <img src={assets.redshirt1} className="w-[60%]" alt="" />
               <div className="flex flex-col gap-2 mx-12 w-[40%]">
                 <h1 className="text-xs text-gray-400">ATELIER VERONIQUE</h1>
                 <h1 className="text-lg font-semibold">{product.name}</h1>
@@ -60,13 +81,10 @@ const Product = () => {
                     </button>
                   ))}
                 </div>
+                <p className="mt-2">Quantity: </p>
+                <Quantity quantity={quantity} setQuantity={setQuantity} />
                 <button
-                  onClick={() =>
-                    setCart((prev) => [
-                      ...prev,
-                      { ...product, selectedSize: size },
-                    ])
-                  }
+                  onClick={addToCart}
                   className="w-full text-center bg-black text-white py-3 text-sm tracking-[0.3em] mt-4 shadow-md cursor-pointer"
                 >
                   ADD TO CART
@@ -74,19 +92,24 @@ const Product = () => {
                 <div className="flex items-start gap-2 mt-5 ">
                   <Check className="w-4 h-4 text-gray-500 mt-1.25" />
                   <div className="text-gray-700">
-                    <p>Pickup available at our Store</p>
-                    <p className="text-gray-700">Usually ready in 24 hours</p>
+                    <p className="text-xs">Pickup available at our Store</p>
+                    <p className="text-gray-700 text-xs">
+                      Usually ready in 24 hours
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-2 mt-2 ">
                   <Check className="w-4 h-4 text-gray-500 mt-1.25" />
-                  <p>Cash on delivery is available on this product.</p>
+                  <p className="text-xs">
+                    Cash on delivery is available on this product.
+                  </p>
                 </div>
                 <div className="flex items-start gap-2 mt-2 ">
                   <Check className="w-4 h-4 text-gray-500 mt-1.25" />
-                  <p>Easy return and exchange policy within 7 days.</p>
+                  <p className="text-xs">
+                    Easy return and exchange policy within 7 days.
+                  </p>
                 </div>
-                <div></div>
               </div>
             </div>
           )}

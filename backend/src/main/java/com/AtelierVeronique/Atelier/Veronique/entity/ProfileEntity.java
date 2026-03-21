@@ -6,9 +6,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "tbl_profiles")
@@ -45,7 +48,12 @@ public class ProfileEntity {
             isActive=false;
         }
         if(this.cart== null ){
-            this.cart=CartEntity.builder().profile(this).build();
+            this.cart=CartEntity.builder()
+                    .profile(this)
+                    .products(new ArrayList<>())
+                    .build();
+        }else {
+            this.cart.setProfile(this);
         }
     }
 

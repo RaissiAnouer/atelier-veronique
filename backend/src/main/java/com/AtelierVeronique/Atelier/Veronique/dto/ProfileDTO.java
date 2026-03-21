@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 public class ProfileDTO {
     private Long id;
-    private CartEntity cart;
+    private CartDTO cart;
     private String fullName;
     private String password;
     private String email;

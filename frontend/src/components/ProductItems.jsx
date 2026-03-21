@@ -6,7 +6,7 @@ const ProductItems = ({ id, image, name, price }) => {
       <div className="bg-[#F5F5F3] cursor-pointer ">
         <img
           className="hover:scale-110 transition ease-in-out "
-          src={image?.[0]}
+          src={Array.isArray(image) ? image[0] : image}
           alt=""
         />
       </div>

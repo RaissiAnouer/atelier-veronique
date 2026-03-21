@@ -72,13 +72,13 @@ const Collections = () => {
       </div>
 
       <div className="grid grid-cols-3 px-12 pt-10 gap-5">
-        {inventory.map((item, index) => (
+        {collection.map((item, index) => (
           <div onClick={() => handleClick(item.id)} key={index}>
             <ProductItems
               id={item.id}
               name={item.name}
               price={item.price}
-              image={item.image}
+              image={assets.redshirt1}
             />
           </div>
         ))}

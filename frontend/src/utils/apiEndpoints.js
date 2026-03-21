@@ -8,6 +8,9 @@ export const API_ENDPOINTS = {
     GETCOUNT: "/collections/count",
     GETCOLLECTION: "/collections",
     GETPRODUCT: (id) => `/collections/${id}`,
+    GETCART: "/cart",
+    ADDTOCART: (id) => `/cart/add-product/${id}`,
+    REMOVEFROMCART: (id) => `/cart/remove-product/${id}`,
     UPLOAD_IMAGE: `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`
 
 }

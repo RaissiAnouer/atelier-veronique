@@ -2,7 +2,9 @@ package com.AtelierVeronique.Atelier.Veronique.controller;
 
 import com.AtelierVeronique.Atelier.Veronique.dto.AuthDTO;
 import com.AtelierVeronique.Atelier.Veronique.dto.ProfileDTO;
+import com.AtelierVeronique.Atelier.Veronique.repository.ProfileRepository;
 import com.AtelierVeronique.Atelier.Veronique.service.ProfileService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ProfileController {
     private final ProfileService profileService;
+    private final ProfileRepository profileRepository;
 
     @GetMapping("/activate")
     public ResponseEntity<String> activate(@RequestParam String token){
@@ -41,5 +44,13 @@ public class ProfileController {
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("message",e.getMessage()));
         }
+    }
+
+
+    @DeleteMapping("/deleteProfile")
+    @Transactional
+    public void delete(@RequestBody Long profileId)
+    {
+         profileRepository.deleteById(profileId);
     }
 }

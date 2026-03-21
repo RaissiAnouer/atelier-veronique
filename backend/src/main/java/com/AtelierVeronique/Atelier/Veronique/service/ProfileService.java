@@ -3,10 +3,12 @@ package com.AtelierVeronique.Atelier.Veronique.service;
 import com.AtelierVeronique.Atelier.Veronique.dto.AuthDTO;
 import com.AtelierVeronique.Atelier.Veronique.dto.ProfileDTO;
 import com.AtelierVeronique.Atelier.Veronique.entity.ProfileEntity;
+import com.AtelierVeronique.Atelier.Veronique.mapper.CartMapper;
 import com.AtelierVeronique.Atelier.Veronique.repository.ProfileRepository;
 import com.AtelierVeronique.Atelier.Veronique.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,18 +31,24 @@ public class ProfileService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
+    private final CartMapper cartMapper;
+
 
     @Value("${app.activation.url}")
     private  String activationUrl;
 
     public ProfileDTO registerProfile(ProfileDTO profileDTO){
-        ProfileEntity newProfile=toEntity(profileDTO);
+      ProfileEntity newProfile=toEntity(profileDTO);
         newProfile.setActivationToken(UUID.randomUUID().toString());
         newProfile=profileRepository.save(newProfile);
-        String activationLink=activationUrl+"/api/v1.0/activate?token="+newProfile.getActivationToken();
-        String subject="Active your account";
-        String body="Click on the following link to activate your account: "+activationLink;
-        emailService.sendEmail(newProfile.getEmail(),subject,body);
+        try {
+            String activationLink = activationUrl + "/api/v1.0/activate?token=" + newProfile.getActivationToken();
+            String subject = "Active your account";
+            String body = "Click on the following link to activate your account: " + activationLink;
+            emailService.sendEmail(newProfile.getEmail(), subject, body);
+        }catch (Exception e){
+            System.err.println("Email failed to send for: " + newProfile.getEmail() + " | Error: " + e.getMessage());
+        }
         return toDTO(newProfile);
     }
 
@@ -94,7 +102,6 @@ public class ProfileService {
                 .id(profileDTO.getId())
                 .fullName(profileDTO.getFullName())
                 .email(profileDTO.getEmail())
-                .cart(profileDTO.getCart())
                 .password(passwordEncoder.encode(profileDTO.getPassword()))
                 .createdAt(profileDTO.getCreatedAt())
                 .updatedAt(profileDTO.getUpdatedAt())
@@ -104,7 +111,7 @@ public class ProfileService {
     public ProfileDTO toDTO(ProfileEntity profileEntity){
         return ProfileDTO.builder()
                 .id(profileEntity.getId())
-                .cart(profileEntity.getCart())
+                .cart(cartMapper.toDTO(profileEntity.getCart()))
                 .fullName(profileEntity.getFullName())
                 .email(profileEntity.getEmail())
                 .createdAt(profileEntity.getCreatedAt())

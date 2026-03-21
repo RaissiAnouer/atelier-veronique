@@ -23,4 +23,5 @@ public class CartItemEntity {
     @ManyToOne
     @JoinColumn(name = "product_size_id")
     private ProductSizeEntity productSize;
+    private int quantity;
 }

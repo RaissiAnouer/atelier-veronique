@@ -2,6 +2,7 @@ package com.AtelierVeronique.Atelier.Veronique.service;
 
 
 import brevo.ApiClient;
+import brevo.ApiException;
 import brevo.Configuration;
 import brevo.auth.ApiKeyAuth;
 import brevoApi.TransactionalEmailsApi;
@@ -46,9 +47,10 @@ public class EmailService {
 
         try {
             apiInstance.sendTransacEmail(sendSmtpEmail);
-            System.out.println("Email sent successfully to: " + to);
-        } catch (Exception e) {
-            System.err.println("Error sending email: " + e.getMessage());
+        } catch (ApiException e) {
+            // This is the CRITICAL part to see what's wrong
+            System.err.println("Brevo Error Code: " + e.getCode());
+            System.err.println("Brevo Error Body: " + e.getResponseBody());
             e.printStackTrace();
         }
     }

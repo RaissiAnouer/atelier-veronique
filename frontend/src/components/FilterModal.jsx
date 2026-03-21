@@ -6,7 +6,6 @@ import { API_ENDPOINTS } from "../utils/apiEndpoints";
 const FilterModal = ({ isOpen, onClose }) => {
   const [categoryCount, setCategoryCount] = useState([]);
   const [category, setCategory] = useState([]);
-
   useEffect(() => {
     if (isOpen) {
       const fetchCategoryCount = async () => {

@@ -7,12 +7,14 @@ import axiosConfig from "../utils/axiosConfig";
 import { API_ENDPOINTS } from "../utils/apiEndpoints";
 import { AlertCircle } from "lucide-react";
 import { validateEmail } from "../utils/validation";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -37,6 +39,8 @@ const Login = () => {
       if (response.status === 200) {
         toast("Login successful");
         console.log(response.data);
+        localStorage.setItem("token", response.data.token);
+        navigate("/collection");
       }
     } catch (err) {
       console.error("Login failed", err);

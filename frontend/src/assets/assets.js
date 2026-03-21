@@ -35,7 +35,7 @@ import pant4_3 from "./collection/images/pant4_3.jpeg";
 
 export const assets = {
     login, home, next, home2, home3, home4, home5
-    , home6, previous, arrowDown
+    , home6, previous, arrowDown, redshirt1
 }
 
 export const inventory = [
