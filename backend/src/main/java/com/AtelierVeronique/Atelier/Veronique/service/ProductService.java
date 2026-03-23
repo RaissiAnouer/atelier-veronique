@@ -55,6 +55,11 @@ public class ProductService {
         return toDTO(product);
     }
 
+    public List<ProductDTO> filter(List<String> categories){
+        List<ProductEntity> products = productRepository.findByCategoryIn(categories);
+        return products.stream().map(this::toDTO).toList();
+    }
+
 
 
 

@@ -2,19 +2,15 @@ package com.AtelierVeronique.Atelier.Veronique.service;
 
 import brevoModel.Cart;
 import com.AtelierVeronique.Atelier.Veronique.dto.CartDTO;
-import com.AtelierVeronique.Atelier.Veronique.dto.CartItemDTO;
-import com.AtelierVeronique.Atelier.Veronique.dto.ProductDTO;
 import com.AtelierVeronique.Atelier.Veronique.entity.*;
 import com.AtelierVeronique.Atelier.Veronique.mapper.CartMapper;
 import com.AtelierVeronique.Atelier.Veronique.repository.CartRepository;
-import com.AtelierVeronique.Atelier.Veronique.repository.ProfileRepository;
 import com.AtelierVeronique.Atelier.Veronique.repository.SizeRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -80,12 +76,6 @@ public class CartService {
         cartRepository.save(cart);
         return cartMapper.toDTO(cart);
     }
-
-
-
-
-
-
 
 
 }

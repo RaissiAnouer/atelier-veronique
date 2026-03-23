@@ -1,5 +1,5 @@
 import { ArrowRightIcon, X } from "lucide-react";
-import { assets } from "../assets/assets";
+import { assets, NAVIGATION } from "../assets/assets";
 import { useState } from "react";
 
 const SidebarModal = ({ isOpen, onClose }) => {
@@ -27,31 +27,18 @@ const SidebarModal = ({ isOpen, onClose }) => {
           </button>
 
           <div className="flex flex-col divide-y divide-gray-300 text-sm">
-            <div className="flex justify-between items-center py-4 cursor-pointer">
-              <p className="  text-gray-500 hover:text-gray-800 font-semibold transition">
-                COLLECTION
-              </p>
-              <img src={assets.next} className=" w-3 h-3" />
-            </div>
+            {NAVIGATION.map((item, index) => (
+              <div
+                key={index}
+                className="flex justify-between items-center py-4 cursor-pointer"
+              >
+                <p className="  text-gray-500 hover:text-gray-800 font-semibold transition">
+                  {item.name}
+                </p>
 
-            <div className="flex justify-between items-center py-4 cursor-pointer">
-              <p className=" text-gray-500 hover:text-gray-800 font-semibold transition">
-                MADE-TO-MESURE
-              </p>
-              <img src={assets.next} className=" w-3 h-3" />
-            </div>
-
-            <div className="flex justify-between items-center py-4 cursor-pointer">
-              <p className=" text-gray-500 hover:text-gray-800 font-semibold transition">
-                GIFT CARDS
-              </p>
-            </div>
-
-            <div className="flex justify-between items-center py-6 cursor-pointer">
-              <p className="text-gray-500 hover:text-gray-800 font-semibold transition">
-                STYLE GUIDE
-              </p>
-            </div>
+                <img src={assets.next} className=" w-3 h-3" />
+              </div>
+            ))}
           </div>
         </div>
       </div>

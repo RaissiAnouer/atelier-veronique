@@ -16,4 +16,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
 
     @Query("SELECT p.category AS category,COUNT(p) AS count FROM ProductEntity p GROUP BY p.category")
     List<CategoryCount> findAllCategoryGroupByCount();
+
+    List<ProductEntity> findByCategoryIn(List<String> categories);
 }

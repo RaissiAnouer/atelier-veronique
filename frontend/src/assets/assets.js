@@ -195,3 +195,47 @@ export const inventory = [
 
 
 ]
+
+export const CATEGORIES = [
+    { title: "new", path: "/collection/category/new" },
+    {
+        title: "Top",
+        path: "/collection/category/top",
+        subItems: [
+            { name: "jackets", path: "/collection/category/jacket" },
+            { name: "shirts", path: "/collection/category/shirt" },
+            { name: "t-shirts", path: "/collection/category/t-shirt" },
+            { name: "Knitwear", path: "/collection/category/knitwear" }
+        ]
+    },
+    {
+        title: "Bottom",
+        path: "/collection/category/bottom",
+        subItems: [
+            { name: "jeans", path: "/collection/category/jeans" },
+            { name: "shorts", path: "/collection/category/shorts" },
+            { name: "skirts", path: "/collection/category/skirts" }
+        ]
+    },
+    {
+        title: "Suits",
+        path: "/collection/category/suits",
+
+    }
+    , {
+        title: "Coats",
+        path: "/collection/category/coats",
+    },
+    {
+        title: "Shoes",
+        path: "/collection/category/shoes",
+    }
+
+]
+
+export const NAVIGATION = [
+    { name: "COLLECTION", PATH: "/collection" },
+    { name: "MADE-TO-MESURE", PATH: "/made-to-mesure" },
+    { name: "GIFT CARDS", PATH: "/gift-cards" },
+    { name: "STYLE GUIDE", PATH: "/style-guide" },
+]

@@ -5,7 +5,7 @@ import { useContext, useEffect } from "react";
 import { Menu, Search, ShoppingBag, User, X } from "lucide-react";
 import Title from "./Title";
 import SidebarModal from "./SidebarModal";
-import { assets } from "../assets/assets";
+import { assets, CATEGORIES } from "../assets/assets";
 import CartModal from "./CartModal";
 
 const Navbar = () => {
@@ -55,35 +55,37 @@ const Navbar = () => {
               Collection
             </p>
             <div className="absolute top-full  font-semibold opacity-0 invisible translate-y-2 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 w-[160px] border border-gray-200 bg-white  px-5 py-4 text-sm space-y-3 font-medium text-[14px] ">
-              <p>New</p>
-
-              <div className="relative group/top">
-                <div className="flex justify-between  items-center">
-                  <p>Top</p>
-                  <img src={assets.next} className="w-2 h-2" alt="" />
+              {CATEGORIES.map((item, index) => (
+                <div key={index}>
+                  <div className="relative group/top">
+                    <div className="flex justify-between  items-center">
+                      <p
+                        key={index}
+                        className="cursor-pointer"
+                        onClick={() => navigate(item.path)}
+                      >
+                        {item.title}
+                      </p>
+                      {item.subItems && item.subItems.length > 0 && (
+                        <img src={assets.next} className="w-2 h-2" alt="" />
+                      )}
+                    </div>
+                    {item.subItems && item.subItems.length > 0 && (
+                      <div className="absolute left-full px-5 top-0 opacity-0 invisible translate-x-2 transition-all duration-300 ease-out group-hover/top:opacity-100 group-hover/top:visible group-hover/bottom:translate-x-0 w-[160px] border border-gray-200 bg-white px-5 py-4 text-sm space-y-3 font-medium text-[14px]">
+                        {item.subItems.map((subItem, subIndex) => (
+                          <p
+                            key={subIndex}
+                            className="cursor-pointer"
+                            onClick={() => navigate(subItem.path)}
+                          >
+                            {subItem.name}
+                          </p>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <div className="absolute left-full px-5 top-0 opacity-0 invisible translate-x-2 transition-all duration-300 ease-out group-hover/top:opacity-100 group-hover/top:visible group-hover/bottom:translate-x-0 w-[160px] border border-gray-200 bg-white px-5 py-4 text-sm space-y-3 font-medium text-[14px]">
-                  <p className="cursor-pointer">Jackets</p>
-                  <p className="cursor-pointer">Shirts</p>
-                  <p className="cursor-pointer">T-shirts</p>
-                  <p className="cursor-pointer">Knitwear</p>
-                </div>
-              </div>
-
-              <div className="relative group/bottom">
-                <div className="flex justify-between items-center">
-                  <p className="cursor-pointer">Bottom</p>
-                  <img src={assets.next} className="w-2 h-2" alt="" />
-                </div>
-                <div className="absolute left-full px-5  top-0 opacity-0 invisible translate-x-2 transition-all duration-300 ease-out group-hover/bottom:opacity-100 group-hover/bottom:visible group-hover/bottom:translate-x-0 w-[160px] border border-gray-200 bg-white px-5 py-4 text-sm space-y-3 font-medium text-[14px]">
-                  <p className="cursor-pointer">Jeans</p>
-                  <p className="cursor-pointer">Shorts</p>
-                  <p className="cursor-pointer">Skirts</p>
-                </div>
-              </div>
-              <p className="cursor-pointer">Suits</p>
-              <p className="cursor-pointer">Coats</p>
-              <p className="cursor-pointer">Shoes</p>
+              ))}
             </div>
           </div>
 

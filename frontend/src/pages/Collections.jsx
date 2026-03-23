@@ -6,13 +6,14 @@ import FilterModal from "../components/FilterModal";
 import axiosConfig from "../utils/axiosConfig";
 import { API_ENDPOINTS } from "../utils/apiEndpoints";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Collections = () => {
   const [openSortBy, setOpenSortBy] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
   const [collection, setCollection] = useState([]);
   const navigate = useNavigate();
+  const { category } = useParams();
 
   const handleClick = (id) => {
     navigate(`/collection/${id}`);
@@ -20,8 +21,11 @@ const Collections = () => {
 
   useEffect(() => {
     const fetchCollection = async () => {
+      const endpoint = category
+        ? API_ENDPOINTS.GETBYCATEGORY(category)
+        : API_ENDPOINTS.GETCOLLECTION;
       try {
-        const response = await axiosConfig.get(API_ENDPOINTS.GETCOLLECTION);
+        const response = await axiosConfig.get(endpoint);
 
         if (response.status === 200) {
           setCollection(response.data);
@@ -39,7 +43,7 @@ const Collections = () => {
       }
     };
     fetchCollection();
-  }, []);
+  }, [category]);
 
   return (
     <div className="mb-6">

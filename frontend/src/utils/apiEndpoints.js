@@ -8,6 +8,7 @@ export const API_ENDPOINTS = {
     GETCOUNT: "/collections/count",
     GETCOLLECTION: "/collections",
     GETPRODUCT: (id) => `/collections/${id}`,
+    GETBYCATEGORY: (category) => `/collections/category/${category}`,
     GETCART: "/cart",
     ADDTOCART: (id) => `/cart/add-product/${id}`,
     REMOVEFROMCART: (id) => `/cart/remove-product/${id}`,
