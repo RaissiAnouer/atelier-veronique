@@ -2,6 +2,7 @@ package com.AtelierVeronique.Atelier.Veronique.service;
 
 import com.AtelierVeronique.Atelier.Veronique.dto.CategoryCount;
 import com.AtelierVeronique.Atelier.Veronique.dto.ProductDTO;
+import com.AtelierVeronique.Atelier.Veronique.dto.SizeCount;
 import com.AtelierVeronique.Atelier.Veronique.dto.SizeDTO;
 import com.AtelierVeronique.Atelier.Veronique.entity.ProductEntity;
 import com.AtelierVeronique.Atelier.Veronique.entity.ProductSizeEntity;
@@ -45,6 +46,10 @@ public class ProductService {
 
     }
 
+    public List<SizeCount> getSizeAndCount(){
+        return productRepository.findAllSizesGroupByCount();
+    }
+
     public List<ProductDTO> getBestSellers(){
         List<ProductEntity> bestSellers=productRepository.findByBestSeller(true);
         return bestSellers.stream().map(this::toDTO).toList();
@@ -55,8 +60,8 @@ public class ProductService {
         return toDTO(product);
     }
 
-    public List<ProductDTO> filter(List<String> categories){
-        List<ProductEntity> products = productRepository.findByCategoryIn(categories);
+    public List<ProductDTO> filter(List<String> categories,long min ,long max,List<String> sizes){
+        List<ProductEntity> products = productRepository.findProductsFiltered(categories,min,max,sizes);
         return products.stream().map(this::toDTO).toList();
     }
 

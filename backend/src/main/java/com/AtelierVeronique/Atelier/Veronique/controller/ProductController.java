@@ -2,6 +2,7 @@ package com.AtelierVeronique.Atelier.Veronique.controller;
 
 import com.AtelierVeronique.Atelier.Veronique.dto.CategoryCount;
 import com.AtelierVeronique.Atelier.Veronique.dto.ProductDTO;
+import com.AtelierVeronique.Atelier.Veronique.dto.SizeCount;
 import com.AtelierVeronique.Atelier.Veronique.entity.ProductEntity;
 import com.AtelierVeronique.Atelier.Veronique.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -35,17 +36,23 @@ public class ProductController {
     }
 
     @GetMapping("/count")
-    public ResponseEntity<List<CategoryCount>> getCountByCategy(){
+    public ResponseEntity<List<CategoryCount>> getCountByCategory(){
         return ResponseEntity.ok(productService.getCategoryAndCount());
     }
+
+    @GetMapping("/size")
+    public ResponseEntity<List<SizeCount>> getCountBySize(){
+        return ResponseEntity.ok(productService.getSizeAndCount());
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductDTO> getProductById(@PathVariable Long id){
         return ResponseEntity.ok(productService.getProductById(id));
     }
-    @GetMapping("/category")
-    public ResponseEntity<List<ProductDTO>> filter(@RequestParam List<String> category,@RequestParam Long lowestPrice,@RequestParam Long highestPrice){
-        return  ResponseEntity.ok(productService.filter(category));
+    @GetMapping("/filter")
+    public ResponseEntity<List<ProductDTO>> filter(@RequestParam(required = false) List<String> category,@RequestParam(required = false, defaultValue = "0") Long min,@RequestParam(required = false, defaultValue = "9999") Long max,@RequestParam(required = false) List<String> sizes){
+        return  ResponseEntity.ok(productService.filter(category,min,max,sizes));
     }
 
 

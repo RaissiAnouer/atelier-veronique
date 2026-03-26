@@ -45,6 +45,10 @@ const Collections = () => {
     fetchCollection();
   }, [category]);
 
+  const handleFilter = (filteredProducts) => {
+    setCollection(filteredProducts);
+  };
+
   return (
     <div className="mb-6">
       <Navbar />
@@ -87,7 +91,11 @@ const Collections = () => {
           </div>
         ))}
       </div>
-      <FilterModal isOpen={openFilter} onClose={() => setOpenFilter(false)} />
+      <FilterModal
+        isOpen={openFilter}
+        onClose={() => setOpenFilter(false)}
+        onFilter={handleFilter}
+      />
     </div>
   );
 };
