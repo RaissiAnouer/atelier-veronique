@@ -50,7 +50,7 @@ public class ProductController {
     public ResponseEntity<ProductDTO> getProductById(@PathVariable Long id){
         return ResponseEntity.ok(productService.getProductById(id));
     }
-    @GetMapping("/filter")
+    @GetMapping("/  filter")
     public ResponseEntity<List<ProductDTO>> filter(@RequestParam(required = false) List<String> category,@RequestParam(required = false, defaultValue = "0") Long min,@RequestParam(required = false, defaultValue = "9999") Long max,@RequestParam(required = false) List<String> sizes){
         return  ResponseEntity.ok(productService.filter(category,min,max,sizes));
     }

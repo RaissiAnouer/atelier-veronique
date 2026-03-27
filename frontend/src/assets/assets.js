@@ -200,7 +200,7 @@ export const CATEGORIES = [
     { title: "new", path: "/collection/category/new" },
     {
         title: "Top",
-        path: "/collection/category/top",
+        path: "",
         subItems: [
             { name: "jackets", path: "/collection/category/jacket" },
             { name: "shirts", path: "/collection/category/shirt" },
@@ -210,7 +210,7 @@ export const CATEGORIES = [
     },
     {
         title: "Bottom",
-        path: "/collection/category/bottom",
+        path: "",
         subItems: [
             { name: "jeans", path: "/collection/category/jeans" },
             { name: "shorts", path: "/collection/category/shorts" },
@@ -233,9 +233,11 @@ export const CATEGORIES = [
 
 ]
 
-export const NAVIGATION = [
-    { name: "COLLECTION", PATH: "/collection" },
-    { name: "MADE-TO-MESURE", PATH: "/made-to-mesure" },
-    { name: "GIFT CARDS", PATH: "/gift-cards" },
-    { name: "STYLE GUIDE", PATH: "/style-guide" },
+
+
+export const SIDEBAR_NAVIGATION = [
+    { name: "COLLECTION", path: "/collection", content: CATEGORIES },
+    { name: "MADE-TO-MESURE", path: "/made-to-mesure", content: [] },
+    { name: "GIFT CARDS", path: "/giftcards", content: [] },
+    { name: "STYLE GUIDE", path: "/style-guide", content: [] }
 ]

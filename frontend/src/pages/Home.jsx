@@ -3,12 +3,20 @@ import Navbar from "../components/Navbar";
 import { assets, inventory } from "../assets/assets";
 import ProductItems from "../components/ProductItems";
 import ItemsScroll from "../components/ItemsScroll";
+import OverlayButton from "../components/OverlayButton";
 
 const Home = () => {
   return (
     <div>
       <Navbar />
-      <img src={assets.home} className="w-full h-full object-cover" alt="" />
+      <div className="relative w-full h-full">
+        <img
+          src={assets.home}
+          className="w-full h-[800px] object-cover"
+          alt=""
+        />
+        <OverlayButton text="NEW ARRIVALS" />
+      </div>
       <ItemsScroll
         title="DESIGNED WITH CARE USING ONLY THE FINEST FABRICS"
         inventory={inventory}
@@ -20,9 +28,7 @@ const Home = () => {
           className="relative w-full h-1/2 object-cover mt-10"
           alt=""
         />
-        <button className="absolute border border-white top-[50%] bg-black/40 left-[50%] transform -translate-x-1/2 -translate-y-1/2 px-5 py-2 text-white cursor-pointer font-bold shadow-xs ">
-          OUTWEAR ELEGANCE
-        </button>
+        <OverlayButton text="OUTWEAR ELEGANCE" />
       </div>
       <ItemsScroll
         title="OUR KNITWEAR ARTISAN WORK WITH MODERNS SILHOUTE"
@@ -56,9 +62,7 @@ const Home = () => {
           className="w-full h-screen object-cover my-10 "
           alt=""
         />
-        <button className="absolute border border-white top-[50%] bg-black/40 left-[50%] transform -translate-x-1/2 -translate-y-1/2 px-5 py-2 text-white cursor-pointer font-bold shadow-xs">
-          OUTWEAR ELEGANCE
-        </button>
+        <OverlayButton text="BROWSE NEW ARRIVALAS" />
       </div>
       <ItemsScroll
         title="Made by hand in Puglia"

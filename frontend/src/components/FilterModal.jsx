@@ -22,7 +22,7 @@ const FilterModal = ({ isOpen, onClose, onFilter }) => {
           category: category,
           max: range[1],
           min: range[0],
-          size: sizeFilter,
+          sizes: sizeFilter,
         },
       });
       if (response.status === 200) {
@@ -64,7 +64,7 @@ const FilterModal = ({ isOpen, onClose, onFilter }) => {
   return (
     <>
       <div
-        className={`fixed inset-0 bg-black/40 z-40 transition-opacity duration-300 ${
+        className={`fixed inset-0 bg-black/40 z-40 transition-opacity duration-300  ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         onClick={onClose}

@@ -1,5 +1,9 @@
 {
   "dependencies": {
+    "@cloudinary/react": "^1.14.4",
+    "@cloudinary/url-gen": "^1.22.0",
+    "@stripe/react-stripe-js": "^6.0.0",
+    "@stripe/stripe-js": "^9.0.0",
     "react-range-slider-input": "^3.3.2"
   }
 }

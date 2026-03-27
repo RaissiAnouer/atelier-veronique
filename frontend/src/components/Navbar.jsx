@@ -39,7 +39,7 @@ const Navbar = () => {
   return (
     <div className="relative flex items-center justify-between md:justify-between bg-white z-30 sticky top-0 px-4 py-4  md:px-12 md:py-7">
       <div className="flex items-center gap-6 shrink-0">
-        <button onClick={() => setOpenSideMenu(!openSideMenu)}>
+        <button onClick={() => setOpenSideMenu(true)}>
           {openSideMenu ? (
             <X className="text-2xl text-gray-500 cursor-pointer" />
           ) : (

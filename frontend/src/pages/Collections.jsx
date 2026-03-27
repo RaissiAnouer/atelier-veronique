@@ -49,13 +49,25 @@ const Collections = () => {
     setCollection(filteredProducts);
   };
 
+  useEffect(() => {
+    if (openFilter) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [openFilter]);
+
   return (
     <div className="mb-6">
       <Navbar />
       <h2 className="text-md mt-6 text-gray-600 text-center tracking-[0.3em] font-semibold">
         COLLECTION
       </h2>
-      <div className="w-full relative py-3 border-y border-gray-200 mt-3 flex items-center">
+      <div className="w-full sticky top-[80px] z-10 relative py-3 border-y border-gray-200 mt-3 flex items-center bg-white">
         <p className="absolute left-1/2 -translate-x-1/2 text-center text-xs text-gray-400 text-xs">
           {collection.length} PRODUCTS
         </p>
