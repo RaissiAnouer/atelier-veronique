@@ -65,6 +65,11 @@ public class ProductService {
         return products.stream().map(this::toDTO).toList();
     }
 
+    public List<ProductDTO> searchProduct(String keyword){
+        List<ProductEntity> products = productRepository.searchByNameOrCategory(keyword);
+        return products.stream().map(this::toDTO).toList();
+    }
+
 
 
 

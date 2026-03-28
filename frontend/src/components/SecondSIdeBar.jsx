@@ -29,7 +29,7 @@ export const SecondSIdeBar = ({
       <div
         className={`fixed z-40 top-0 bottom-0 left-0 w-85 bg-white border-l border-gray-200 overflow-y-auto
     transform transition-transform duration-300 ease-in-out
-    ${isOpen ? " md:translate-x-96" : ""}
+    ${isOpen ? " translate-x-96" : "-translate-x-full"}
   `}
       >
         <div

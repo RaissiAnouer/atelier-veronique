@@ -102,8 +102,8 @@ const CartModal = ({ isOpen, onClose }) => {
               </div>
 
               {/* Checkout button */}
-              <div className="px-6 py-4 border-t border-gray-200">
-                <button className="w-4/5 mx-auto block bg-black text-white py-3 text-sm tracking-[0.3em] shadow-md cursor-pointer rounded-md">
+              <div className="sticky py-4 bottom-0 right-0 left-0 border-t border-gray-200">
+                <button className="w-4/5 mx-auto block bg-black text-white py-3 text-sm tracking-[0.3em] shadow-md cursor-pointer ">
                   CHECKOUT
                 </button>
               </div>

@@ -35,4 +35,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
     List<ProductEntity> findProductsFiltered(@Param("categories") List<String> categories,
                                              @Param("min") long min,
                                              @Param("max") long max,
-                                             @Param("sizes") List<String> sizes);}
+                                             @Param("sizes") List<String> sizes);
+
+    @Query("SELECT p FROM ProductEntity p WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(p.category) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+    List<ProductEntity> searchByNameOrCategory(String keyword);}
