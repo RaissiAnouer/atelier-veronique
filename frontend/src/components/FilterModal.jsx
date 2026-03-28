@@ -71,12 +71,12 @@ const FilterModal = ({ isOpen, onClose, onFilter }) => {
       />
 
       <div
-        className={`fixed z-50 top-0 bottom-0 right-0 w-86 bg-white overflow-y-auto
+        className={`fixed z-50 top-0 bottom-0 right-0 w-full md:w-86 bg-white overflow-y-auto
           transform transition-transform duration-300 ease-in-out
           ${isOpen ? "translate-x-0" : " translate-x-full"}
         `}
       >
-        <div className="flex flex-col gap-4 py-7">
+        <div className="flex flex-col gap-4 py-7 h-full relative">
           <div className="flex justify-between items-center px-7">
             <h2 className="text-md text-gray-600 text-center tracking-[0.3em] font-semibold ">
               FILTERS
@@ -90,7 +90,7 @@ const FilterModal = ({ isOpen, onClose, onFilter }) => {
           </div>
           <p className="border-b border-gray-200 h-1 w-full relative"></p>
 
-          <div className="flex flex-col  font-semibold px-7 ">
+          <div className="flex flex-col font-semibold px-7 mb-24">
             <div
               className="flex items-center justify-between cursor-pointer"
               onClick={() => setCatToggle(!catToggle)}
@@ -210,12 +210,14 @@ const FilterModal = ({ isOpen, onClose, onFilter }) => {
               )}
             </div>
           </div>
-          <button
-            onClick={() => filterProducts()}
-            className="absolute left-1/2 -translate-x-1/2 bottom-7 py-3 w-[84%] bg-gray-800 text-white text-sm  tracking-[0.2em]  cursor-pointer"
-          >
-            VIEW RESULTS
-          </button>
+          <div className="absolute bottom-0 left-0 w-full p-7 bg-white border-t border-gray-100">
+            <button
+              onClick={() => filterProducts()}
+              className="w-full py-4 bg-gray-800 text-white text-xs md:text-sm tracking-[0.2em] cursor-pointer"
+            >
+              VIEW RESULTS
+            </button>
+          </div>
         </div>
       </div>
     </>

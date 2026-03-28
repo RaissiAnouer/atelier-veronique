@@ -41,7 +41,7 @@ const CartModal = ({ isOpen, onClose }) => {
         onClick={onClose}
       />
       <div
-        className={`fixed z-50 top-0 bottom-0 right-0 w-96 bg-white overflow-y-auto transform transition-transform duration-300 ease-in-out ${
+        className={`fixed z-50 top-0 bottom-0 right-0 w-full md:w-96 bg-white overflow-y-auto transform transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -57,23 +57,23 @@ const CartModal = ({ isOpen, onClose }) => {
         </div>
 
         {/* Products */}
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-[calc(100%-80px)]">
           {cart.products?.length === 0 ? (
             <p className="text-gray-400 text-sm text-center mt-6">
               Your cart is empty.
             </p>
           ) : (
-            <div className="flex flex-col h-full justify-between">
+            <div className="flex flex-col h-full">
               <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4">
                 {cart?.products?.map((item, index) => (
                   <div className="flex gap-4 items-center" key={index}>
                     <img
                       src={item.image?.[0] || assets.redshirt1}
-                      className="w-1/3 h-24 object-cover rounded-md"
+                      className="w-24 md:w-1/3 h-24 object-cover rounded-md"
                       alt={item.productName}
                     />
                     <div className="flex-1 flex flex-col gap-1">
-                      <h1 className="text-xs text-gray-400">
+                      <h1 className="text-[10px] md:text-xs text-gray-400">
                         ATELIER VERONIQUE
                       </h1>
                       <h2 className="text-sm text-gray-800 tracking-[0.05em]">
@@ -82,7 +82,9 @@ const CartModal = ({ isOpen, onClose }) => {
                       <h2 className="text-gray-500 text-xs">{item.price} TD</h2>
                       <div className="flex items-center gap-4 mt-2">
                         <div className="flex justify-between border border-gray-300 py-1 px-2 items-center gap-2 min-w-[80px]">
-                          <Minus className="w-3 h-3 text-gray-400" />
+                          <button>
+                            <Minus className="w-3 h-3 text-gray-400" />
+                          </button>
                           <span className="text-sm">{item.quantity}</span>
                           <button disabled>
                             <Plus className="w-3 h-3 text-gray-400" />
@@ -90,7 +92,7 @@ const CartModal = ({ isOpen, onClose }) => {
                         </div>
                         <button
                           onClick={() => removeFromCart(item.productSizeId)}
-                          className="relative text-gray-600 text-sm cursor-pointer group"
+                          className="relative text-gray-600 text-xs md:text-sm cursor-pointer group"
                         >
                           Remove
                           <span className="absolute left-0 bottom-0 h-[1px] w-full bg-gray-500 transition-all duration-300 ease-in-out origin-center scale-x-100 group-hover:scale-x-0"></span>
@@ -102,8 +104,8 @@ const CartModal = ({ isOpen, onClose }) => {
               </div>
 
               {/* Checkout button */}
-              <div className="sticky py-4 bottom-0 right-0 left-0 border-t border-gray-200">
-                <button className="w-4/5 mx-auto block bg-black text-white py-3 text-sm tracking-[0.3em] shadow-md cursor-pointer ">
+              <div className="p-6 border-t border-gray-200 bg-white">
+                <button className="w-full bg-black text-white py-4 text-xs md:text-sm tracking-[0.3em] shadow-md cursor-pointer">
                   CHECKOUT
                 </button>
               </div>
