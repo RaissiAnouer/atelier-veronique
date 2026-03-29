@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Collections from "./pages/Collections";
 import Product from "./components/Product";
+import Blogs from "./pages/Blogs";
 function App() {
   return (
     <>
@@ -16,6 +17,7 @@ function App() {
           <Route element={<Login />} path="/login" />
           <Route element={<Home />} path="/home" />
           <Route element={<Collections />} path="/collection" />
+          <Route element={<Blogs />} path="/style-guide" />
           <Route
             element={<Collections />}
             path="/collection/category/:category"
