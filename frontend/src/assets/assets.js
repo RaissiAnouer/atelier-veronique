@@ -241,3 +241,12 @@ export const SIDEBAR_NAVIGATION = [
     { name: "GIFT CARDS", path: "/giftcards", content: [] },
     { name: "STYLE GUIDE", path: "/style-guide", content: [] }
 ]
+
+export const sortByOptions = [
+    { name: "Price: Low to High", field: "price", order: "asc" },
+    { name: "Price: High to Low", field: "price", order: "desc" },
+    { name: "Name: A to Z", field: "name", order: "asc" },
+    { name: "Name: Z to A", field: "name", order: "desc" },
+    { name: "Newest Arrivals", field: "id", order: "desc" },
+    { name: "Oldest Arrivals", field: "id", order: "asc" },
+];

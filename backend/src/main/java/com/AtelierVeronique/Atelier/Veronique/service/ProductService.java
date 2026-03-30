@@ -9,8 +9,10 @@ import com.AtelierVeronique.Atelier.Veronique.entity.ProductSizeEntity;
 import com.AtelierVeronique.Atelier.Veronique.entity.ProfileEntity;
 import com.AtelierVeronique.Atelier.Veronique.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -67,6 +69,12 @@ public class ProductService {
 
     public List<ProductDTO> searchProduct(String keyword){
         List<ProductEntity> products = productRepository.searchByNameOrCategory(keyword);
+        return products.stream().map(this::toDTO).toList();
+    }
+
+    public List<ProductDTO> sort(String field, String direction){
+        Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(field).descending():Sort.by(field).ascending();
+        List<ProductEntity> products= productRepository.findAll(sort);
         return products.stream().map(this::toDTO).toList();
     }
 

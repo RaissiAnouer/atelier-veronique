@@ -24,6 +24,12 @@ public class BlogService {
         return toDTO(newBlog);
     }
 
+    public BlogDTO getBlogById(Long id){
+        BlogEntity blog=blogRepository.findById(id).orElseThrow(()-> new RuntimeException("Blog not found or not accessible"));
+        return toDTO(blog);
+
+    }
+
     private BlogEntity toEntity(BlogDTO dto){
         return BlogEntity.builder()
                 .id(dto.getId())
@@ -35,6 +41,7 @@ public class BlogService {
                 .updatedAt(dto.getUpdatedAt())
                 .build();
     }
+
 
     private BlogDTO toDTO(BlogEntity entity){
         return BlogDTO.builder()

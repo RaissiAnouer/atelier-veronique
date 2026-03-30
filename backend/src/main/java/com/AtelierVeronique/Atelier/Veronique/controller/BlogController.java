@@ -21,6 +21,12 @@ public class BlogController {
     public ResponseEntity<List<BlogDTO>> getBlogs(){
         return ResponseEntity.ok(blogService.getBlogs());
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<BlogDTO> getBlogById(@PathVariable Long id){
+        return ResponseEntity.ok(blogService.getBlogById(id));
+
+    }
+
     @PostMapping("/add")
     public ResponseEntity<BlogDTO> addBolg(@RequestBody BlogDTO blog){
         return ResponseEntity.status(HttpStatus.CREATED).body(blogService.addBolg(blog));

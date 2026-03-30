@@ -16,6 +16,7 @@ export const API_ENDPOINTS = {
     REMOVEFROMCART: (id) => `/cart/remove-product/${id}`,
     SEARCH: "/collections/search",
     GETBLOGS: "/style-guides",
+    GETBLOGBYID: (id) => `/style-guides/${id}`,
     UPLOAD_IMAGE: `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`
 
 }

@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Collections from "./pages/Collections";
 import Product from "./components/Product";
 import Blogs from "./pages/Blogs";
+import BlogContent from "./components/BlogContent";
 function App() {
   return (
     <>
@@ -18,6 +19,7 @@ function App() {
           <Route element={<Home />} path="/home" />
           <Route element={<Collections />} path="/collection" />
           <Route element={<Blogs />} path="/style-guide" />
+          <Route element={<BlogContent />} path="/style-guide/:id/:title" />
           <Route
             element={<Collections />}
             path="/collection/category/:category"

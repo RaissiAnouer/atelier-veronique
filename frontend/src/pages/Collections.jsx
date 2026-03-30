@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import { assets, inventory } from "../assets/assets";
+import { assets, inventory, sortByOptions } from "../assets/assets";
 import ProductItems from "../components/ProductItems";
 import FilterModal from "../components/FilterModal";
 import axiosConfig from "../utils/axiosConfig";
@@ -19,8 +19,19 @@ const Collections = () => {
     navigate(`/collection/${id}`);
   };
 
+  const sort = async (field, order) => {
+    try {
+      const response = await axiosConfig.get(API_ENDPOINTS.SORTBYOPTION);
+      if (response.status === 200) {
+        setCollection(response.data);
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Error sorting products");
+    }
+  };
+
   useEffect(() => {
-    const fetchCollection = async () => {
+    const fetchCollection = async (sortOption) => {
       const endpoint = category
         ? API_ENDPOINTS.GETBYCATEGORY(category)
         : API_ENDPOINTS.GETCOLLECTION;
@@ -73,25 +84,40 @@ const Collections = () => {
         </p>
 
         <div className="flex items-center ml-auto gap-4 md:gap-2 mr-4 md:mr-8">
-          <button
-            onClick={() => setOpenSortBy(!openSortBy)}
-            className="flex items-center cursor-pointer gap-2"
-          >
-            <p className="text-[10px] md:text-xs text-gray-400 hover:text-gray-600">
-              SORT BY
-            </p>
-            <img
-              src={assets.arrowDown}
-              className={`transition-transform duration-200 ease-in-out h-2 w-2 ${openSortBy ? "rotate-180" : "rotate-0"} `}
-              alt=""
-            />
-          </button>
-          <button
-            onClick={() => setOpenFilter(!openFilter)}
-            className="cursor-pointer text-[10px] md:text-xs text-gray-400 hover:text-gray-600 mr-4 md:mr-12"
-          >
-            FILTER
-          </button>
+          <div className="relative flex items-center gap-8">
+            <button
+              onClick={() => setOpenSortBy(!openSortBy)}
+              className=" flex items-center cursor-pointer gap-2"
+            >
+              <p className="text-[10px] md:text-xs text-gray-400 hover:text-gray-600">
+                SORT BY
+              </p>
+              <img
+                src={assets.arrowDown}
+                className={`transition-transform duration-200 ease-in-out h-2 w-2 ${openSortBy ? "rotate-180" : "rotate-0"} `}
+                alt=""
+              />
+            </button>
+            {openSortBy && (
+              <div className="absolute text-center top-full right-4 md:right-8 bg-white border border-gray-200 rounded shadow-md p-4  z-20">
+                {sortByOptions.map((option, index) => (
+                  <p
+                    key={index}
+                    className="text-[10px] md:text-[15px] text-gray-400 hover:text-gray-600 p-2 cursor-pointer whitespace-nowrap"
+                    onClick={() => sort(option.field, option.order)}
+                  >
+                    {option.name}
+                  </p>
+                ))}
+              </div>
+            )}
+            <button
+              onClick={() => setOpenFilter(!openFilter)}
+              className="cursor-pointer text-[10px] md:text-xs text-gray-400 hover:text-gray-600 mr-4 "
+            >
+              FILTER
+            </button>
+          </div>
         </div>
       </div>
 
