@@ -243,10 +243,10 @@ export const SIDEBAR_NAVIGATION = [
 ]
 
 export const sortByOptions = [
-    { name: "Price: Low to High", field: "price", order: "asc" },
-    { name: "Price: High to Low", field: "price", order: "desc" },
-    { name: "Name: A to Z", field: "name", order: "asc" },
-    { name: "Name: Z to A", field: "name", order: "desc" },
-    { name: "Newest Arrivals", field: "id", order: "desc" },
-    { name: "Oldest Arrivals", field: "id", order: "asc" },
+    { name: "Price: Low to High", field: "price", direction: "asc" },
+    { name: "Price: High to Low", field: "price", direction: "desc" },
+    { name: "Name: A to Z", field: "name", direction: "asc" },
+    { name: "Name: Z to A", field: "name", direction: "desc" },
+    { name: "Newest Arrivals", field: "id", direction: "desc" },
+    { name: "Oldest Arrivals", field: "id", direction: "asc" }
 ];

@@ -9,6 +9,7 @@ export const API_ENDPOINTS = {
     GETSIZEFILTER: "/collections/size",
     FILTER: "/collections/filter",
     GETCOLLECTION: "/collections",
+    SORTBYOPTION: "/collections/sortBy",
     GETPRODUCT: (id) => `/collections/${id}`,
     GETBYCATEGORY: (category) => `/collections/category/${category}`,
     GETCART: "/cart",

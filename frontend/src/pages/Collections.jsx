@@ -19,11 +19,17 @@ const Collections = () => {
     navigate(`/collection/${id}`);
   };
 
-  const sort = async (field, order) => {
+  const sort = async (field, direction) => {
     try {
-      const response = await axiosConfig.get(API_ENDPOINTS.SORTBYOPTION);
+      const response = await axiosConfig.get(API_ENDPOINTS.SORTBYOPTION, {
+        params: {
+          field,
+          direction,
+        },
+      });
       if (response.status === 200) {
         setCollection(response.data);
+        console.log("Sorted products:", response.data);
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "Error sorting products");
@@ -31,7 +37,7 @@ const Collections = () => {
   };
 
   useEffect(() => {
-    const fetchCollection = async (sortOption) => {
+    const fetchCollection = async () => {
       const endpoint = category
         ? API_ENDPOINTS.GETBYCATEGORY(category)
         : API_ENDPOINTS.GETCOLLECTION;
@@ -104,7 +110,7 @@ const Collections = () => {
                   <p
                     key={index}
                     className="text-[10px] md:text-[15px] text-gray-400 hover:text-gray-600 p-2 cursor-pointer whitespace-nowrap"
-                    onClick={() => sort(option.field, option.order)}
+                    onClick={() => sort(option.field, option.direction)}
                   >
                     {option.name}
                   </p>
