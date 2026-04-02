@@ -7,7 +7,6 @@ import axiosConfig from "../utils/axiosConfig";
 import { API_ENDPOINTS } from "../utils/apiEndpoints";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
-
 const Collections = () => {
   const [openSortBy, setOpenSortBy] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
@@ -16,7 +15,7 @@ const Collections = () => {
   const { category } = useParams();
 
   const handleClick = (id) => {
-    navigate(`/collection/${id}`);
+    navigate(`/collection/product/${id}`);
   };
 
   const sort = async (field, direction) => {
@@ -38,13 +37,19 @@ const Collections = () => {
 
   useEffect(() => {
     const fetchCollection = async () => {
-      const endpoint = category
-        ? API_ENDPOINTS.GETBYCATEGORY(category)
-        : API_ENDPOINTS.GETCOLLECTION;
+      let endpoint;
+      if (category === "gift-cards") {
+        endpoint = API_ENDPOINTS.GETGIFTCARDS;
+      } else {
+        endpoint = category
+          ? API_ENDPOINTS.GETBYCATEGORY(category)
+          : API_ENDPOINTS.GETCOLLECTION;
+      }
       try {
         const response = await axiosConfig.get(endpoint);
 
         if (response.status === 200) {
+          console.log("Fetched collection:", response.data);
           setCollection(response.data);
         }
       } catch (err) {

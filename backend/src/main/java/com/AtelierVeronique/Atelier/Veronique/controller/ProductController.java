@@ -29,10 +29,7 @@ public class ProductController {
     }
 
 
-    @PostMapping
-    public ResponseEntity<ProductDTO> addProduct(@RequestBody ProductDTO productDTO){
-        return ResponseEntity.status(HttpStatus.CREATED).body(productService.AddProduct(productDTO));
-    }
+
 
     @GetMapping("/category/{category}")
     public ResponseEntity<List<ProductDTO>> getProductByCategory(@PathVariable String category){
@@ -67,9 +64,6 @@ public class ProductController {
     @GetMapping("/sortBy")
     public ResponseEntity<List<ProductDTO>> Sort(@RequestParam String field ,@RequestParam(defaultValue = "asc") String direction){
        return ResponseEntity.ok(productService.sort(field,direction));
-
-
-
     }
 
 

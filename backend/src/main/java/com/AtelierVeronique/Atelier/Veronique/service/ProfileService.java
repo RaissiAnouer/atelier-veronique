@@ -34,6 +34,7 @@ public class ProfileService {
     private final CartMapper cartMapper;
 
 
+
     @Value("${app.activation.url}")
     private  String activationUrl;
 

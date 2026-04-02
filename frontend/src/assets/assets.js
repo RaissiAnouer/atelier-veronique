@@ -238,7 +238,7 @@ export const CATEGORIES = [
 export const SIDEBAR_NAVIGATION = [
     { name: "COLLECTION", path: "/collection", content: CATEGORIES },
     { name: "MADE-TO-MESURE", path: "/made-to-mesure", content: [] },
-    { name: "GIFT CARDS", path: "/giftcards", content: [] },
+    { name: "GIFT CARDS", path: "/collection/gift-cards", content: [] },
     { name: "STYLE GUIDE", path: "/style-guide", content: [] }
 ]
 

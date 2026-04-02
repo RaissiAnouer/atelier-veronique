@@ -18,13 +18,10 @@ function App() {
           <Route element={<Login />} path="/login" />
           <Route element={<Home />} path="/home" />
           <Route element={<Collections />} path="/collection" />
+          <Route element={<Collections />} path="/collection/:category" />
           <Route element={<Blogs />} path="/style-guide" />
           <Route element={<BlogContent />} path="/style-guide/:id/:title" />
-          <Route
-            element={<Collections />}
-            path="/collection/category/:category"
-          />
-          <Route element={<Product />} path="/collection/:id" />
+          <Route element={<Product />} path="/collection/product/:id" />
         </Routes>
       </BrowserRouter>
     </>

@@ -24,6 +24,12 @@ public class ProfileEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String fullName;
+    public enum Role {
+        ADMIN,
+        USER
+    }
+    @Enumerated(EnumType.STRING)
+    private Role role= Role.USER;
     @Column(unique = true)
     private String email;
     private String password;
