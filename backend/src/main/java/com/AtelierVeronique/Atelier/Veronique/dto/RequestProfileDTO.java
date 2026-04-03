@@ -1,6 +1,6 @@
 package com.AtelierVeronique.Atelier.Veronique.dto;
 
-import com.AtelierVeronique.Atelier.Veronique.entity.CartEntity;
+import com.AtelierVeronique.Atelier.Veronique.entity.ProfileEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 @Builder
-public class ProfileDTO {
+public class RequestProfileDTO {
     private Long id;
     private CartDTO cart;
     private String fullName;
@@ -20,4 +20,5 @@ public class ProfileDTO {
     private String email;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
 }

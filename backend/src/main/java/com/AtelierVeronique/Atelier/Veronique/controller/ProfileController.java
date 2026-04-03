@@ -1,15 +1,17 @@
 package com.AtelierVeronique.Atelier.Veronique.controller;
 
 import com.AtelierVeronique.Atelier.Veronique.dto.AuthDTO;
-import com.AtelierVeronique.Atelier.Veronique.dto.ProfileDTO;
+import com.AtelierVeronique.Atelier.Veronique.dto.RequestProfileDTO;
+import com.AtelierVeronique.Atelier.Veronique.dto.ResponseProfileDTO;
 import com.AtelierVeronique.Atelier.Veronique.repository.ProfileRepository;
 import com.AtelierVeronique.Atelier.Veronique.service.ProfileService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -28,7 +30,7 @@ public class ProfileController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<ProfileDTO> register(@RequestBody ProfileDTO newUser){
+    public ResponseEntity<ResponseProfileDTO> register(@RequestBody RequestProfileDTO newUser){
         return ResponseEntity.status(HttpStatus.CREATED).body(profileService.registerProfile(newUser));
     }
 
@@ -46,11 +48,20 @@ public class ProfileController {
         }
     }
 
-
-    @DeleteMapping("/deleteProfile")
-    @Transactional
-    public void delete(@RequestBody Long profileId)
-    {
-         profileRepository.deleteById(profileId);
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/profiles")
+    public ResponseEntity<List<ResponseProfileDTO>> getProfiles(){
+        return ResponseEntity.ok(profileService.getProfiles());
     }
+
+
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/profiles/{id}")
+    public ResponseEntity<String> deleteProfile(@PathVariable Long id){
+        profileService.deleteProfile(id);
+        return ResponseEntity.ok("Profile with ID " + id + " has been deleted successfully.");
+    }
+
+
 }

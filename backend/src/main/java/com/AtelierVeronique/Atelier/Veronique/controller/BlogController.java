@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,10 +28,13 @@ public class BlogController {
 
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<BlogDTO> addBolg(@RequestBody BlogDTO blog){
         return ResponseEntity.status(HttpStatus.CREATED).body(blogService.addBolg(blog));
 
     }
+
+    
 
 }

@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -64,6 +65,13 @@ public class ProductController {
     @GetMapping("/sortBy")
     public ResponseEntity<List<ProductDTO>> Sort(@RequestParam String field ,@RequestParam(defaultValue = "asc") String direction){
        return ResponseEntity.ok(productService.sort(field,direction));
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/collection/addProduct")
+    public ResponseEntity<ProductDTO> addProduct(@RequestBody ProductDTO productDTO){
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.AddProduct(productDTO));
     }
 
 

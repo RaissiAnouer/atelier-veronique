@@ -21,10 +21,13 @@ public class AppUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
         ProfileEntity existingProfile= profileRepository.findByEmail(email)
                 .orElseThrow(()->new UsernameNotFoundException("profile not found with email :"+email));
+
+        String roleWithPrefix = "ROLE_" + existingProfile.getRole().name();
+
         return User.builder()
                 .username(existingProfile.getEmail())
                 .password(existingProfile.getPassword())
-                .authorities(Collections.emptyList())
+                .authorities(roleWithPrefix)
                 .build();
     }
 }

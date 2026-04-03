@@ -50,6 +50,9 @@ public class ProfileEntity {
 
     @PrePersist
     public void prePersist(){
+        if(this.role==null){
+            this.role=Role.USER;
+        }
         if(this.isActive==null){
             isActive=false;
         }
