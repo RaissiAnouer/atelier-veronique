@@ -48,7 +48,6 @@ public class EmailService {
         try {
             apiInstance.sendTransacEmail(sendSmtpEmail);
         } catch (ApiException e) {
-            // This is the CRITICAL part to see what's wrong
             System.err.println("Brevo Error Code: " + e.getCode());
             System.err.println("Brevo Error Body: " + e.getResponseBody());
             e.printStackTrace();

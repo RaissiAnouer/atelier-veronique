@@ -7,6 +7,7 @@ import Collections from "./pages/Collections";
 import Product from "./components/Product";
 import Blogs from "./pages/Blogs";
 import BlogContent from "./components/BlogContent";
+import AdminProducts from "./pages/AdminProducts";
 function App() {
   return (
     <>
@@ -18,6 +19,7 @@ function App() {
           <Route element={<Login />} path="/login" />
           <Route element={<Home />} path="/home" />
           <Route element={<Collections />} path="/collection" />
+          <Route element={<AdminProducts />} path="/admin" />
           <Route element={<Collections />} path="/collection/:category" />
           <Route element={<Blogs />} path="/style-guide" />
           <Route element={<BlogContent />} path="/style-guide/:id/:title" />

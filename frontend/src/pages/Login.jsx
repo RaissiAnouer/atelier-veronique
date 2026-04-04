@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Title from "../components/Title";
 import { assets } from "../assets/assets";
 import Input from "../components/Input";
@@ -8,12 +8,14 @@ import { API_ENDPOINTS } from "../utils/apiEndpoints";
 import { AlertCircle } from "lucide-react";
 import { validateEmail } from "../utils/validation";
 import { Navigate, useNavigate } from "react-router-dom";
+import { AppContext } from "../context/AppContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { setUser } = useContext(AppContext);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -38,8 +40,9 @@ const Login = () => {
       });
       if (response.status === 200) {
         toast("Login successful");
-        console.log(response.data);
+        console.log(response.data.user);
         localStorage.setItem("token", response.data.token);
+        setUser(response.data.user);
         navigate("/collection");
       }
     } catch (err) {
@@ -72,7 +75,7 @@ const Login = () => {
             placeholder="Email"
           />
           <Input
-            label="PASSWORD "
+            label="PASSWORD"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"

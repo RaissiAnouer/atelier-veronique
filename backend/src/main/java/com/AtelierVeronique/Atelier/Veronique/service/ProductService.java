@@ -78,6 +78,13 @@ public class ProductService {
         return products.stream().map(this::toDTO).toList();
     }
 
+    public void  deleteProduct(Long id){
+        if(! productRepository.existsById(id)){
+            throw new RuntimeException("Product not found");
+        }
+        productRepository.deleteById(id);
+    }
+
 
 
 

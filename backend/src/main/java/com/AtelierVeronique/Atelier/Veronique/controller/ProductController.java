@@ -68,13 +68,16 @@ public class ProductController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/collection/addProduct")
+    @PostMapping("/addProduct")
     public ResponseEntity<ProductDTO> addProduct(@RequestBody ProductDTO productDTO){
 
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.AddProduct(productDTO));
     }
 
-
-
-
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/deleteProduct/{id}")
+    public ResponseEntity<String> deleteProduct(@PathVariable Long id){
+        productService.deleteProduct(id);
+       return ResponseEntity.ok("successfully deleted product"+id);
+    }
 }

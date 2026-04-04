@@ -32,10 +32,11 @@ import pant3_3 from "./collection/images/pant3_3.png";
 import pant4 from "./collection/images/pant4.png";
 import pant4_2 from "./collection/images/pant4_2.png";
 import pant4_3 from "./collection/images/pant4_3.jpeg";
+import upload_area from "./upload_area.png";
 
 export const assets = {
     login, home, next, home2, home3, home4, home5
-    , home6, previous, arrowDown, redshirt1
+    , home6, previous, arrowDown, redshirt1, upload_area
 }
 
 export const inventory = [

@@ -72,13 +72,7 @@ public class ProfileService {
         }else{
             currentUser=profileRepository.findByEmail(email).orElseThrow(()->new UsernameNotFoundException("Profile not found with this email"+email));
         }
-        return ResponseProfileDTO.builder()
-                .id(currentUser.getId())
-                .fullName(currentUser.getFullName())
-                .email(currentUser.getEmail())
-                .createdAt(currentUser.getCreatedAt())
-                .updatedAt(currentUser.getUpdatedAt())
-                .build();
+        return toDTO(currentUser);
     }
 
     public Map<String,Object>authenticateAndGenerateToken(AuthDTO authDTO){

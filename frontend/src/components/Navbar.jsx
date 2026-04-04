@@ -40,6 +40,17 @@ const Navbar = () => {
 
   return (
     <>
+      {user?.role?.toLowerCase() === "admin" && (
+        <div className="bg-gray-900 text-white text-[10px] py-1 px-4 flex justify-between items-center tracking-tighter">
+          <span>ADMIN MODE</span>
+          <button
+            onClick={() => navigate("/admin")}
+            className="underline hover:text-gray-300"
+          >
+            Go to Dashboard →
+          </button>
+        </div>
+      )}
       <div className="relative flex items-center justify-between md:justify-between bg-white z-40 sticky top-0 px-4 py-4  md:px-12 md:py-7">
         <div className="flex items-center gap-6 shrink-0">
           <button onClick={() => setOpenSideMenu(true)}>
@@ -49,7 +60,8 @@ const Navbar = () => {
               <Menu className="text-2xl text-gray-500 cursor-pointer" />
             )}
           </button>
-          <div className=" items-center gap-6 hidden md:flex">
+
+          {/* <div className=" items-center gap-6 hidden md:flex">
             <div className="relative group  ">
               <p
                 className="text-md font-semibold text-gray-400 group-hover:text-gray-800  cursor-pointer"
@@ -99,6 +111,7 @@ const Navbar = () => {
               Contact
             </p>
           </div>
+          */}
         </div>
 
         <div
@@ -114,6 +127,14 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-4 shrink-0">
+          {user?.role?.toLowerCase() === "admin" && (
+            <button
+              onClick={() => navigate("/admin")}
+              className="ml-2 px-3 py-1 text-xs tracking-widest uppercase border border-gray-300 text-gray-500 hover:bg-gray-800 hover:text-white transition-all duration-300 rounded-sm"
+            >
+              Admin Panel
+            </button>
+          )}
           <button onClick={() => setOpenSearchBar(!openSearchBar)}>
             <Search className="text-gray-500 cursor-pointer" size={25} />
           </button>
