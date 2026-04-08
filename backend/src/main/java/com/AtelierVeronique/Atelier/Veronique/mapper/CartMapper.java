@@ -36,7 +36,7 @@ public class CartMapper {
                 .productSizeId(cartItemEntity.getProductSize().getId())
                 .quantity(cartItemEntity.getQuantity())
                 .productName(product.getName())
-                .image(product.getImage())
+                .images(product.getImages())
                 .price(product.getPrice())
                 .productSize(sizeEntity.getSize().name())
                 .build();

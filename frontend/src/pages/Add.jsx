@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { assets } from "../assets/assets";
-import Input from "./Input";
+import Input from "../components/Input";
 import axiosConfig from "../utils/axiosConfig";
 import { API_ENDPOINTS } from "../utils/apiEndpoints";
 import { toast } from "react-hot-toast";
@@ -25,7 +25,7 @@ const CategoryOptions = [
 
 const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
 
-const AddProductForm = () => {
+const Add = () => {
   // Refactored images into an array for cleaner mapping
   const [images, setImages] = useState([null, null, null, null]);
   const [name, setName] = useState("");
@@ -231,4 +231,4 @@ const AddProductForm = () => {
   );
 };
 
-export default AddProductForm;
+export default Add;

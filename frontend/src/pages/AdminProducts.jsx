@@ -31,7 +31,7 @@ const AdminProducts = () => {
       }
     };
     fetchProducts();
-  }, []);
+  }, [products]);
 
   const onDeleteProduct = async (productId) => {
     try {
@@ -65,7 +65,7 @@ const AdminProducts = () => {
           <p className="px-4 text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">
             Management
           </p>
-          <NavItem label="Dashboard" active={false} />
+          <NavItem label="Add" active={false} />
           <NavItem label="Products" active={true} />
           <NavItem label="Orders" active={false} />
         </nav>
@@ -118,7 +118,7 @@ const AdminProducts = () => {
                       <div className="flex items-center gap-4">
                         <img
                           src={
-                            product.image?.[0] ||
+                            product.images?.[0] ||
                             "https://via.placeholder.com/150"
                           }
                           alt=""
