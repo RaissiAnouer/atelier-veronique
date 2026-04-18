@@ -36,8 +36,9 @@ const Product = () => {
     }
     try {
       const response = await axiosConfig.post(
-        API_ENDPOINTS.ADDTOCART(id),
+        API_ENDPOINTS.ADDTOCART(size.id),
         quantity,
+        { headers: { "Content-Type": "application/json" } },
       );
 
       if (response.status === 200) {
@@ -60,7 +61,7 @@ const Product = () => {
             <p>Loading ...</p>
           ) : (
             <div className="flex gap-10  w-full">
-              <img src={assets.redshirt1} className="w-[60%]" alt="" />
+              <img src={product.images[0]} className="w-[60%]" alt="" />
               <div className="flex flex-col gap-2 mx-12 w-[40%]">
                 <h1 className="text-xs text-gray-400">ATELIER VERONIQUE</h1>
                 <h1 className="text-lg font-semibold">{product.name}</h1>
@@ -68,7 +69,8 @@ const Product = () => {
                   {product.price}TD
                 </h1>
                 <p className="w-full h-1 text-gray-300  border-b-1 mt-5" />
-                <p className="text-gray-400">{product.description}</p>
+
+                <p className="text-sm text-gray-700">{product.description}</p>
                 <div>
                   <p className="mb-3">Size:</p>
                   {product.sizes.map((item, index) => (

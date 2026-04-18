@@ -30,6 +30,19 @@ public class BlogService {
 
     }
 
+    public BlogDTO editBlog(Long id, BlogDTO dto) {
+        BlogEntity existingBlog = blogRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Blog not found"));
+        
+        existingBlog.setTitle(dto.getTitle());
+        existingBlog.setImage(dto.getImage());
+        existingBlog.setText(dto.getText());
+        existingBlog.setAuthor(dto.getAuthor());
+        
+        BlogEntity updatedBlog = blogRepository.save(existingBlog);
+        return toDTO(updatedBlog);
+    }
+
     private BlogEntity toEntity(BlogDTO dto){
         return BlogEntity.builder()
                 .id(dto.getId())
@@ -42,6 +55,13 @@ public class BlogService {
                 .build();
     }
 
+
+    public void deleteBlog(Long id) {
+        if (!blogRepository.existsById(id)) {
+            throw new RuntimeException("Blog not found");
+        }
+        blogRepository.deleteById(id);
+    }
 
     private BlogDTO toDTO(BlogEntity entity){
         return BlogDTO.builder()

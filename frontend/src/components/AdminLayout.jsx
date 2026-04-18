@@ -1,29 +1,52 @@
-import React from "react";
-import { NavLink, useLocation } from "react-router-dom";
-import { Plus, LayoutGrid, Package, LogOut } from "lucide-react";
+import React, { useContext } from "react";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
+import {
+  LayoutDashboard,
+  ShoppingBag,
+  BookOpen,
+  Package,
+  Users,
+  LogOut,
+} from "lucide-react";
+import { AppContext } from "../context/AppContext";
 
 const navItems = [
   {
-    to: "/admin/add",
-    label: "Add Content",
-    icon: Plus,
-    description: "Product or Blog",
+    to: "/admin",
+    label: "Dashboard",
+    icon: LayoutDashboard,
+    description: "Overview & Stats",
+    end: true,
   },
   {
-    to: "/admin/list",
-    label: "All Items",
-    icon: LayoutGrid,
-    description: "Products & Blogs",
+    to: "/admin/products",
+    label: "Products",
+    icon: ShoppingBag,
+    description: "Manage catalog",
+  },
+  {
+    to: "/admin/blogs",
+    label: "Blogs",
+    icon: BookOpen,
+    description: "Style guides",
   },
   {
     to: "/admin/orders",
     label: "Orders",
     icon: Package,
-    description: "Track & manage",
+    description: "Track & fulfill",
+  },
+  {
+    to: "/admin/customers",
+    label: "Customers",
+    icon: Users,
+    description: "User accounts",
   },
 ];
 
-const AdminLayout = ({ children }) => {
+const AdminLayout = () => {
+  const { user } = useContext(AppContext);
+
   return (
     <div className="flex min-h-screen bg-[#F7F5F2]">
       {/* Sidebar */}
@@ -46,10 +69,11 @@ const AdminLayout = ({ children }) => {
           <p className="px-4 text-[9px] font-bold text-white/25 uppercase tracking-[0.3em] mb-3">
             Management
           </p>
-          {navItems.map(({ to, label, icon: Icon, description }) => (
+          {navItems.map(({ to, label, icon: Icon, description, end }) => (
             <NavLink
               key={to}
               to={to}
+              end={end}
               className={({ isActive }) =>
                 `group flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-200 ${
                   isActive
@@ -92,7 +116,15 @@ const AdminLayout = ({ children }) => {
         </nav>
 
         {/* Footer */}
-        <div className="px-4 pb-6">
+        <div className="px-4 pb-6 space-y-3">
+          {user && (
+            <div className="px-4 py-3 border-t border-white/10">
+              <p className="text-xs text-white/60 font-medium truncate">
+                {user.fullName}
+              </p>
+              <p className="text-[10px] text-white/30 truncate">{user.email}</p>
+            </div>
+          )}
           <NavLink
             to="/home"
             className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/30 hover:text-white/60 hover:bg-white/5 transition-all duration-200"
@@ -104,7 +136,9 @@ const AdminLayout = ({ children }) => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto">{children}</main>
+      <main className="flex-1 overflow-y-auto">
+        <Outlet />
+      </main>
     </div>
   );
 };

@@ -4,9 +4,11 @@ import com.AtelierVeronique.Atelier.Veronique.dto.CategoryCount;
 import com.AtelierVeronique.Atelier.Veronique.dto.ProductDTO;
 import com.AtelierVeronique.Atelier.Veronique.dto.SizeCount;
 import com.AtelierVeronique.Atelier.Veronique.dto.SizeDTO;
+import com.AtelierVeronique.Atelier.Veronique.entity.ImageEntity;
 import com.AtelierVeronique.Atelier.Veronique.entity.ProductEntity;
 import com.AtelierVeronique.Atelier.Veronique.entity.ProductSizeEntity;
 import com.AtelierVeronique.Atelier.Veronique.entity.ProfileEntity;
+import com.AtelierVeronique.Atelier.Veronique.mapper.ProductMapper;
 import com.AtelierVeronique.Atelier.Veronique.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -21,6 +23,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
 
 
 
@@ -78,6 +81,23 @@ public class ProductService {
         return products.stream().map(this::toDTO).toList();
     }
 
+    public void edit(Long id,ProductDTO productDTO){
+        ProductEntity product = productRepository.findById(id).orElseThrow(()-> new RuntimeException("item not found"));
+        productMapper.updateProductFromDto(productDTO,product);
+        if (productDTO.getSizes() != null ){
+            product.getSizes().clear();
+            List<ProductSizeEntity> sizes= productDTO.getSizes()
+                    .stream().map(sizeDTO -> ProductSizeEntity.builder()
+                            .size(sizeDTO.getSize())
+                            .product(product).build())
+                    .toList();
+
+            product.getSizes().addAll(sizes);
+        }
+        productRepository.save(product);
+    }
+
+
     public void  deleteProduct(Long id){
         if(! productRepository.existsById(id)){
             throw new RuntimeException("Product not found");
@@ -93,7 +113,6 @@ public class ProductService {
         ProductEntity product= ProductEntity.builder()
                 .id(productDTO.getId())
                 .name(productDTO.getName())
-                .images(productDTO.getImages())
                 .price(productDTO.getPrice())
                 .category(productDTO.getCategory())
                 .bestSeller(productDTO.isBestSeller())
@@ -101,6 +120,17 @@ public class ProductService {
                 .createdAt(productDTO.getCreatedAt())
                 .updatedAt(productDTO.getUpdatedAt())
                 .build();
+        if (productDTO.getImages() != null) {
+            List<ImageEntity> images = productDTO.getImages()
+                    .stream()
+                    .map(url -> ImageEntity.builder()
+                            .url(url)
+                            .product(product)
+                            .build())
+                    .toList();
+
+            product.setImages(images);
+        }
         if(productDTO.getSizes() != null ){
             List<ProductSizeEntity> sizes=productDTO.getSizes()
                     .stream()
@@ -117,7 +147,7 @@ public class ProductService {
         return ProductDTO.builder()
                 .id(productEntity.getId())
                 .name(productEntity.getName())
-                .images(productEntity.getImages())
+                .images(productEntity.getImages() != null ? productEntity.getImages().stream().map(ImageEntity::getUrl).toList():List.of())
                 .price(productEntity.getPrice())
                 .category(productEntity.getCategory())
                 .bestSeller(productEntity.isBestSeller())

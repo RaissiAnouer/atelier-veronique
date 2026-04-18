@@ -6,7 +6,7 @@ import FilterModal from "../components/FilterModal";
 import axiosConfig from "../utils/axiosConfig";
 import { API_ENDPOINTS } from "../utils/apiEndpoints";
 import { toast } from "react-hot-toast";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 const Collections = () => {
   const [openSortBy, setOpenSortBy] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
@@ -14,44 +14,42 @@ const Collections = () => {
   const navigate = useNavigate();
   const { category } = useParams();
 
+  const [searchParams]=useSearchParams();
+  const field=searchParams.get("field");
+  const direction=searchParams.get("direction");
   const handleClick = (id) => {
     navigate(`/collection/product/${id}`);
   };
 
   const sort = async (field, direction) => {
-    try {
-      const response = await axiosConfig.get(API_ENDPOINTS.SORTBYOPTION, {
-        params: {
-          field,
-          direction,
-        },
-      });
-      if (response.status === 200) {
-        setCollection(response.data);
-        console.log("Sorted products:", response.data);
-      }
-    } catch (error) {
-      toast.error(error.response?.data?.message || "Error sorting products");
-    }
+    navigate(`/collection?field=${field}&direction=${direction}`);
   };
 
   useEffect(() => {
     const fetchCollection = async () => {
+        try {
+          if(field && direction){
+            const response= await axiosConfig.get(API_ENDPOINTS.SORTBYOPTION,{
+              params:{field,direction}
+            })
+            setCollection(response.data);
+          }
+      else {
       let endpoint;
       if (category === "gift-cards") {
         endpoint = API_ENDPOINTS.GETGIFTCARDS;
-      } else {
+      }else{
         endpoint = category
           ? API_ENDPOINTS.GETBYCATEGORY(category)
           : API_ENDPOINTS.GETCOLLECTION;
       }
-      try {
+   
         const response = await axiosConfig.get(endpoint);
 
         if (response.status === 200) {
           console.log("Fetched collection:", response.data);
           setCollection(response.data);
-        }
+        }}
       } catch (err) {
         toast.error(
           err.response?.data?.message ||
@@ -65,7 +63,7 @@ const Collections = () => {
       }
     };
     fetchCollection();
-  }, [category]);
+  }, [category,field,direction]);
 
   const handleFilter = (filteredProducts) => {
     setCollection(filteredProducts);
@@ -82,6 +80,7 @@ const Collections = () => {
       document.body.style.overflow = "auto";
     };
   }, [openFilter]);
+
 
   return (
     <div className="mb-6">
@@ -139,7 +138,7 @@ const Collections = () => {
               id={item.id}
               name={item.name}
               price={item.price}
-              image={assets.redshirt1}
+              image={item.images && item.images.length > 0 ? item.images[0] : ""}
             />
           </div>
         ))}

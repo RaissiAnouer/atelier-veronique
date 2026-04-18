@@ -23,9 +23,12 @@ public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private List<String> images;
+
+    @OneToMany(mappedBy = "product", cascade=CascadeType.ALL,orphanRemoval = true)
+    private List<ImageEntity> images;
     private BigDecimal price;
     private String category;
+    @Lob
     private String description;
     private boolean bestSeller;
     @Column(updatable = false)

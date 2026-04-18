@@ -1,6 +1,7 @@
 package com.AtelierVeronique.Atelier.Veronique.repository;
 
 import com.AtelierVeronique.Atelier.Veronique.dto.CategoryCount;
+import com.AtelierVeronique.Atelier.Veronique.dto.ProductDTO;
 import com.AtelierVeronique.Atelier.Veronique.dto.SizeCount;
 import com.AtelierVeronique.Atelier.Veronique.entity.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,6 +26,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
 
     List<ProductEntity> findByCategoryIn(List<String> categories);
 
+
     @Query("""
     SELECT DISTINCT p FROM ProductEntity p
     LEFT JOIN p.sizes s
@@ -39,3 +41,4 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
 
     @Query("SELECT p FROM ProductEntity p WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(p.category) LIKE LOWER(CONCAT('%', :keyword, '%'))")
     List<ProductEntity> searchByNameOrCategory(String keyword);}
+

@@ -80,4 +80,11 @@ public class ProductController {
         productService.deleteProduct(id);
        return ResponseEntity.ok("successfully deleted product"+id);
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PatchMapping("/editProduct/{id}")
+    public ResponseEntity<String> editProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO){
+        productService.edit(id,productDTO);
+        return ResponseEntity.ok("product updated successfully");
+    }
 }

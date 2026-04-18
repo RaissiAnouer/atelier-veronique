@@ -44,9 +44,10 @@ const BlogContent = () => {
           <h1 className="text-3xl md:text-4xl font-light tracking-widest uppercase ">
             {blogContent.title}
           </h1>
-          <p className="text-gray-700 leading-relaxed text-lg pt-12">
-            {blogContent.text}
-          </p>
+          <div 
+            className="text-gray-700 leading-relaxed text-lg pt-12 prose prose-lg max-w-none"
+            dangerouslySetInnerHTML={{ __html: blogContent.text }}
+          />
 
           <div className="text-end text-sm text-gray-400 pt-8">
             Author: {blogContent.author}

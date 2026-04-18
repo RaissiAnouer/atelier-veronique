@@ -7,9 +7,16 @@ import Collections from "./pages/Collections";
 import Product from "./components/Product";
 import Blogs from "./pages/Blogs";
 import BlogContent from "./components/BlogContent";
-import AdminAdd from "./pages/AdminAdd";
-import AdminList from "./pages/AdminList";
-import AdminOrders from "./pages/AdminOrders";
+import PublicRoute from "../routes/PublicRoute";
+import AdminRoute from "../routes/AdminRoute";
+import AdminLayout from "./components/AdminLayout";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminProductsPage from "./pages/admin/AdminProductsPage";
+import AdminBlogsPage from "./pages/admin/AdminBlogsPage";
+import AdminOrdersPage from "./pages/admin/AdminOrdersPage";
+import AdminCustomersPage from "./pages/admin/AdminCustomersPage";
+import CheckoutPage from "./pages/CheckoutPage";
+import OrderSuccess from "./pages/OrderSuccess";
 
 function App() {
   return (
@@ -18,20 +25,46 @@ function App() {
 
       <BrowserRouter>
         <Routes>
-          <Route element={<Signup />} path="/signup" />
-          <Route element={<Login />} path="/login" />
+          <Route
+            element={
+              <PublicRoute>
+                <Signup />
+              </PublicRoute>
+            }
+            path="/signup"
+          />
+          <Route
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+            path="/login"
+          />
           <Route element={<Home />} path="/home" />
           <Route element={<Collections />} path="/collection" />
           <Route element={<Collections />} path="/collection/:category" />
           <Route element={<Blogs />} path="/style-guide" />
           <Route element={<BlogContent />} path="/style-guide/:id/:title" />
           <Route element={<Product />} path="/collection/product/:id" />
+          <Route element={<CheckoutPage />} path="/checkout" />
+          <Route element={<OrderSuccess />} path="/order-success" />
 
-          {/* Admin */}
-          <Route path="/admin" element={<Navigate to="/admin/add" replace />} />
-          <Route element={<AdminAdd />} path="/admin/add" />
-          <Route element={<AdminList />} path="/admin/list" />
-          <Route element={<AdminOrders />} path="/admin/orders" />
+          {/* Admin Routes */}
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <AdminLayout />
+              </AdminRoute>
+            }
+          >
+            <Route index element={<AdminDashboard />} />
+            <Route path="products" element={<AdminProductsPage />} />
+            <Route path="blogs" element={<AdminBlogsPage />} />
+            <Route path="orders" element={<AdminOrdersPage />} />
+            <Route path="customers" element={<AdminCustomersPage />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>

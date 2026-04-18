@@ -2,17 +2,22 @@ import React, { useRef, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
-import { Menu, Search, ShoppingBag, User, X } from "lucide-react";
+import { Menu, Search, ShoppingBag, User, X, LogOut, Package, Settings } from "lucide-react";
 import Title from "./Title";
 import SidebarModal from "./SidebarModal";
+import toast from "react-hot-toast";
 import { assets, CATEGORIES } from "../assets/assets";
 import CartModal from "./CartModal";
 import SearchBar from "./SearchBar";
+import OrdersModal from "./OrdersModal";
+import ProfileModal from "./ProfileModal";
 
 const Navbar = () => {
   const [openSideMenu, setOpenSideMenu] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [openSearchBar, setOpenSearchBar] = useState(false);
+  const [openOrdersModal, setOpenOrdersModal] = useState(false);
+  const [openProfileModal, setOpenProfileModal] = useState(false);
   const dropdownRef = useRef(null);
 
   const { user, clearUser, openCart, setOpenCart } = useContext(AppContext);
@@ -140,33 +145,95 @@ const Navbar = () => {
           </button>
           <div className="relative" ref={dropdownRef}>
             <button
-              className="cursor-pointer flex items-center justify-center"
-              onClick={() => setShowDropdown(!showDropdown)}
+              className="cursor-pointer flex items-center justify-center transition-transform hover:scale-110 active:scale-95"
+              onClick={() => {
+                if (!user) {
+                  navigate("/login");
+                } else {
+                  setShowDropdown(!showDropdown);
+                }
+              }}
             >
-              <User className="text-gray-500 " size={25} />
+              <User className="text-gray-500 hover:text-gray-800 transition-colors" size={25} />
             </button>
-            {showDropdown && (
-              <div className="absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-white border-1 border-gray-400 rounded-md shadow-lg py-1 z-50">
-                <button
-                  className="block px-4 py-2 text-sm text-gray-400 cursor-pointer hover:text-gray-800 w-full text-left"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </button>
+            {user && showDropdown && (
+              <div className="absolute right-0 top-full origin-top-right mt-4 w-64 bg-white border border-gray-100 rounded-xl shadow-2xl z-50 transform transition-all duration-200 animate-in fade-in slide-in-from-top-2">
+                <div className="p-4 border-b border-gray-100 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center text-white text-lg font-semibold shadow-inner shrink-0">
+                    {user.firstName ? user.firstName.charAt(0).toUpperCase() : 'U'}
+                  </div>
+                  <div className="flex flex-col overflow-hidden">
+                    <span className="text-sm font-semibold text-gray-800 truncate">
+                      {user.firstName} {user.lastName}
+                    </span>
+                    <span className="text-xs text-gray-500 truncate">
+                      {user.email}
+                    </span>
+                  </div>
+                </div>
+                
+                <div className="py-2">
+                  <button
+                    onClick={() => {
+                        setOpenOrdersModal(true);
+                        setShowDropdown(false);
+                    }}
+                    className="flex w-full items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                  >
+                    <Package size={16} />
+                    <span>My Orders</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                        setOpenProfileModal(true);
+                        setShowDropdown(false);
+                    }}
+                    className="flex w-full items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                  >
+                    <Settings size={16} />
+                    <span>Profile Settings</span>
+                  </button>
+                </div>
+                
+                <div className="py-2 border-t border-gray-100 mt-1">
+                  <button
+                    onClick={handleLogout}
+                    className="flex w-full items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:text-red-700 hover:bg-red-50 transition-colors duration-200"
+                  >
+                    <LogOut size={16} />
+                    <span className="font-medium">Logout</span>
+                  </button>
+                </div>
               </div>
             )}
           </div>
           <ShoppingBag
-            onClick={() => setOpenCart(true)}
+            onClick={() => {
+              if (!user) {
+                toast.error("Please login to access your cart");
+                return;
+              }
+              setOpenCart(true);
+            }}
             className="text-gray-500 cursor-pointer"
             size={25}
           />
         </div>
-        <CartModal isOpen={openCart} onClose={() => setOpenCart(false)} />
 
+        {user && (
+          <CartModal isOpen={openCart} onClose={() => setOpenCart(false)} />
+        )}
         <SidebarModal
           isOpen={openSideMenu}
           onClose={() => setOpenSideMenu(false)}
+        />
+        <OrdersModal 
+          isOpen={openOrdersModal} 
+          onClose={() => setOpenOrdersModal(false)} 
+        />
+        <ProfileModal 
+          isOpen={openProfileModal} 
+          onClose={() => setOpenProfileModal(false)} 
         />
       </div>
 

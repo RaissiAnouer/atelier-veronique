@@ -4,8 +4,13 @@ import { assets, inventory } from "../assets/assets";
 import ProductItems from "../components/ProductItems";
 import ItemsScroll from "../components/ItemsScroll";
 import OverlayButton from "../components/OverlayButton";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate=useNavigate();
+  const handleNavigation=(path)=>{
+    navigate("/collection"+path);
+  }
   return (
     <div>
       <Navbar />
@@ -15,7 +20,9 @@ const Home = () => {
           className="w-full h-[500px] md:h-[800px] object-cover"
           alt=""
         />
+        <button onClick={()=>handleNavigation("?field=createdAt&direction=desc")}>
         <OverlayButton text="NEW ARRIVALS" />
+        </button>
       </div>
       <ItemsScroll
         title="DESIGNED WITH CARE USING ONLY THE FINEST FABRICS"

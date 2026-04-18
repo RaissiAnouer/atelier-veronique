@@ -32,9 +32,18 @@ public class BlogController {
     @PostMapping("/add")
     public ResponseEntity<BlogDTO> addBolg(@RequestBody BlogDTO blog){
         return ResponseEntity.status(HttpStatus.CREATED).body(blogService.addBolg(blog));
-
     }
 
-    
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteBlog(@PathVariable Long id){
+        blogService.deleteBlog(id);
+        return ResponseEntity.ok("Blog deleted successfully");
+    }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @PatchMapping("/editBlog/{id}")
+    public ResponseEntity<BlogDTO> editBlog(@PathVariable Long id, @RequestBody BlogDTO blog){
+        return ResponseEntity.ok(blogService.editBlog(id, blog));
+    }
 }

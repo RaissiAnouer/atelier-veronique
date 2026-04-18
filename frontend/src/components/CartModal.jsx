@@ -4,9 +4,11 @@ import { AppContext } from "../context/AppContext";
 import { assets } from "../assets/assets";
 import { API_ENDPOINTS } from "../utils/apiEndpoints";
 import axiosConfig from "../utils/axiosConfig";
+import { useNavigate } from "react-router-dom";
 
 const CartModal = ({ isOpen, onClose }) => {
   const { cart, setCart } = useContext(AppContext);
+  const navigate = useNavigate();
 
   const fetchCart = async () => {
     try {
@@ -31,6 +33,16 @@ const CartModal = ({ isOpen, onClose }) => {
   useEffect(() => {
     if (isOpen) fetchCart();
   }, [isOpen]);
+
+  const totalPrice = cart?.products?.reduce(
+    (sum, item) => sum + (item.price || 0) * item.quantity,
+    0
+  ) || 0;
+
+  const handleCheckout = () => {
+    onClose();
+    navigate("/checkout");
+  };
 
   return (
     <>
@@ -68,7 +80,7 @@ const CartModal = ({ isOpen, onClose }) => {
                 {cart?.products?.map((item, index) => (
                   <div className="flex gap-4 items-center" key={index}>
                     <img
-                      src={item.image?.[0] || assets.redshirt1}
+                      src={item.images?.[0] || assets.redshirt1}
                       className="w-24 md:w-1/3 h-24 object-cover rounded-md"
                       alt={item.productName}
                     />
@@ -103,9 +115,16 @@ const CartModal = ({ isOpen, onClose }) => {
                 ))}
               </div>
 
-              {/* Checkout button */}
-              <div className="p-6 border-t border-gray-200 bg-white">
-                <button className="w-full bg-black text-white py-4 text-xs md:text-sm tracking-[0.3em] shadow-md cursor-pointer">
+              {/* Checkout section */}
+              <div className="p-6 border-t border-gray-200 bg-white space-y-3">
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-500">Subtotal</span>
+                  <span className="font-semibold text-gray-800">{totalPrice.toFixed(2)} TND</span>
+                </div>
+                <button
+                  onClick={handleCheckout}
+                  className="w-full bg-black text-white py-4 text-xs md:text-sm tracking-[0.3em] shadow-md cursor-pointer hover:bg-gray-800 transition-colors"
+                >
                   CHECKOUT
                 </button>
               </div>
@@ -118,3 +137,4 @@ const CartModal = ({ isOpen, onClose }) => {
 };
 
 export default CartModal;
+

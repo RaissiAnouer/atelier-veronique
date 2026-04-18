@@ -33,10 +33,12 @@ import pant4 from "./collection/images/pant4.png";
 import pant4_2 from "./collection/images/pant4_2.png";
 import pant4_3 from "./collection/images/pant4_3.jpeg";
 import upload_area from "./upload_area.png";
+import lavato from "./collection/images/lavato.png";
+import lavato1 from "./collection/images/lavato1.png";
 
 export const assets = {
     login, home, next, home2, home3, home4, home5
-    , home6, previous, arrowDown, redshirt1, upload_area
+    , home6, previous, arrowDown, redshirt1, upload_area, lavato, lavato1
 }
 
 export const inventory = [
@@ -203,33 +205,33 @@ export const CATEGORIES = [
         title: "Top",
         path: "",
         subItems: [
-            { name: "jackets", path: "/collection/category/jacket" },
-            { name: "shirts", path: "/collection/category/shirt" },
-            { name: "t-shirts", path: "/collection/category/t-shirt" },
-            { name: "Knitwear", path: "/collection/category/knitwear" }
+            { name: "jackets", path: "/collection/jacket" },
+            { name: "shirts", path: "/collection/shirt" },
+            { name: "t-shirts", path: "/collection/t-shirt" },
+            { name: "Knitwear", path: "/collection/knitwear" }
         ]
     },
     {
         title: "Bottom",
         path: "",
         subItems: [
-            { name: "jeans", path: "/collection/category/jeans" },
-            { name: "shorts", path: "/collection/category/shorts" },
-            { name: "skirts", path: "/collection/category/skirts" }
+            { name: "jeans", path: "/collection/jeans" },
+            { name: "shorts", path: "/collection/shorts" },
+            { name: "skirts", path: "/collection/skirts" }
         ]
     },
     {
         title: "Suits",
-        path: "/collection/category/suits",
+        path: "/collection/suits",
 
     }
     , {
         title: "Coats",
-        path: "/collection/category/coats",
+        path: "/collection/coats",
     },
     {
         title: "Shoes",
-        path: "/collection/category/shoes",
+        path: "/collection/shoes",
     }
 
 ]
